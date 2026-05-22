@@ -1,0 +1,132 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/Container.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+import CalendarWidget from '../../components/islands/CalendarWidget.tsx';
+
+// Build the same event payload as /api/cursos.json, server-side, for SSR.
+// Logic kept inline (small) to avoid extra module + ensure no client fetch.
+const MONTHS: Record<string, number> = {
+  enero:1, ene:1, febrero:2, feb:2, marzo:3, mar:3, abril:4, abr:4, mayo:5, may:5,
+  junio:6, jun:6, julio:7, jul:7, agosto:8, ago:8, septiembre:9, sep:9, sept:9,
+  octubre:10, oct:10, noviembre:11, nov:11, diciembre:12, dic:12,
+};
+const pad = (n: number) => n.toString().padStart(2, '0');
+const iso = (y: number, m: number, d: number) => `${y}-${pad(m)}-${pad(d)}`;
+const daysInMonth = (y: number, m: number) => new Date(y, m, 0).getDate();
+const normalize = (s: string) =>
+  s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[–—]/g, '-').replace(/\s+/g, ' ').trim();
+
+function parseDates(raw: string | undefined) {
+  if (!raw) return { startDate: null as string | null, endDate: null as string | null, confirmed: false };
+  const s = normalize(raw);
+  if (/por confirmar|proxima cohorte|proximamente|pendiente/.test(s)) {
+    return { startDate: null, endDate: null, confirmed: false };
+  }
+  const ym = s.match(/(20\d{2})/);
+  if (!ym) return { startDate: null, endDate: null, confirmed: false };
+  const year = parseInt(ym[1], 10);
+  const text = s.replace(ym[1], '').trim();
+  const ma = Object.keys(MONTHS).join('|');
+
+  let m = text.match(new RegExp(`(\\d{1,2})\\s*(${ma})\\s*-\\s*(\\d{1,2})\\s*(${ma})`));
+  if (m) return { startDate: iso(year, MONTHS[m[2]], +m[1]), endDate: iso(year, MONTHS[m[4]], +m[3]), confirmed: true };
+
+  m = text.match(new RegExp(`(\\d{1,2})\\s*-\\s*(\\d{1,2})\\s*(${ma})`));
+  if (m) {
+    const mo = MONTHS[m[3]];
+    return { startDate: iso(year, mo, +m[1]), endDate: iso(year, mo, +m[2]), confirmed: true };
+  }
+
+  m = text.match(new RegExp(`(${ma})\\s*-\\s*(${ma})`));
+  if (m) {
+    const mo1 = MONTHS[m[1]], mo2 = MONTHS[m[2]];
+    return { startDate: iso(year, mo1, 1), endDate: iso(year, mo2, daysInMonth(year, mo2)), confirmed: true };
+  }
+
+  m = text.match(new RegExp(`(\\d{1,2})\\s*(${ma})`));
+  if (m) {
+    const mo = MONTHS[m[2]];
+    return { startDate: iso(year, mo, +m[1]), endDate: iso(year, mo, +m[1]), confirmed: true };
+  }
+
+  m = text.match(new RegExp(`(${ma})`));
+  if (m) {
+    const mo = MONTHS[m[1]];
+    return { startDate: iso(year, mo, 1), endDate: iso(year, mo, daysInMonth(year, mo)), confirmed: true };
+  }
+
+  return { startDate: null, endDate: null, confirmed: false };
+}
+
+const LOCATION_HINTS: Record<string, string> = {
+  eusim1sep: 'Centro Médico ABC Santa Fe, CDMX',
+  actores: 'Querétaro',
+};
+
+const cursos = await getCollection('cursos');
+
+const events = cursos.map((curso) => {
+  const { startDate, endDate, confirmed } = parseDates(curso.data.dates);
+  if (curso.data.dates && !confirmed) {
+
+    console.warn(`[calendario] could not parse dates for "${curso.id}": "${curso.data.dates}"`);
+  }
+  return {
+    slug: curso.id,
+    title: curso.data.title,
+    shortTitle: curso.data.shortTitle,
+    modality: curso.data.modality,
+    href: curso.data.href,
+    accent: curso.data.accent,
+    startDate,
+    endDate,
+    datesLabel: curso.data.dates ?? 'Próxima cohorte por confirmar',
+    price: curso.data.price,
+    audience: curso.data.audience,
+    location: LOCATION_HINTS[curso.id],
+    avalFlasic: curso.data.avalFlasic,
+    coBranded: curso.data.coBranded,
+    confirmed,
+  };
+});
+
+events.sort((a, b) => {
+  if (a.confirmed && b.confirmed) return (a.startDate ?? '').localeCompare(b.startDate ?? '');
+  if (a.confirmed) return -1;
+  if (b.confirmed) return 1;
+  return a.title.localeCompare(b.title);
+});
+---
+
+<BaseLayout
+  title="Calendario de cursos · SimAcademy"
+  description="Todas las cohortes abiertas y futuras de SimAcademy. Filtra por modalidad, sede o explora por mes."
+>
+  <section class="bg-[var(--gradient-soft)] py-16 sm:py-20">
+    <Container>
+      <SectionTitle
+        eyebrow="Calendario"
+        title="Próximos cursos"
+        subtitle="Todas las cohortes abiertas y futuras. Filtra por modalidad o explora por mes."
+        as="h1"
+      />
+    </Container>
+  </section>
+
+  <section class="py-12 sm:py-16">
+    <Container>
+      <CalendarWidget client:visible events={events} />
+    </Container>
+  </section>
+
+  <CtaBlock
+    variant="purple"
+    title="¿No encuentras la fecha que buscas?"
+    description="Programamos cohortes nuevas regularmente. Avísanos qué curso te interesa y te contactamos cuando abran las próximas inscripciones."
+    ctaLabel="Hablar con SimAcademy"
+    ctaHref="https://wa.me/524422184424?text=Hola%2C%20quiero%20saber%20de%20pr%C3%B3ximas%20cohortes"
+  />
+</BaseLayout>
