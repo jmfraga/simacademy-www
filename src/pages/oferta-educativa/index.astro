@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/Container.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import CourseCard from '../../components/CourseCard.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+
+const cursos = (await getCollection('cursos')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const modalityLabel = {
+  online: 'En línea',
+  presencial: 'Presencial',
+  hibrido: 'Híbrido',
+};
+---
+
+<BaseLayout
+  title="Oferta educativa · SimAcademy"
+  description="Programas de SimAcademy en simulación clínica, debriefing, mindfulness, IA y formación de actores. Presenciales, en línea e híbridos."
+>
+  <section class="bg-[var(--gradient-soft)] py-16 sm:py-24">
+    <Container>
+      <SectionTitle
+        eyebrow="Oferta educativa"
+        title="Nuestros cursos"
+        subtitle="Programas diseñados para profesionales de salud que enseñan, facilitan o aprenden en simulación clínica."
+        as="h1"
+      />
+    </Container>
+  </section>
+
+  <section class="reveal py-16 sm:py-20">
+    <Container>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {cursos.map((curso) => (
+          <CourseCard
+            title={curso.data.shortTitle ?? curso.data.title}
+            description={curso.data.description}
+            modality={modalityLabel[curso.data.modality]}
+            dates={curso.data.dates}
+            price={curso.data.price}
+            slug={curso.id}
+            href={curso.data.href}
+            image={curso.data.image}
+            accent={curso.data.accent}
+          />
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <CtaBlock
+    variant="green"
+    title="¿No encuentras lo que buscas?"
+    description="Diseñamos programas a medida para hospitales, escuelas y centros de simulación."
+    ctaLabel="Pedir programa a medida"
+    ctaHref="https://wa.me/524422184424?text=Hola%2C%20quiero%20info%20sobre%20programa%20a%20medida"
+  />
+</BaseLayout>
