@@ -1,0 +1,101 @@
+/* SimAcademy — base animations and reveal patterns.
+ * Honors prefers-reduced-motion globally.
+ */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+/* Stagger helper — apply with inline style --i */
+.stagger > * {
+  opacity: 0;
+  animation: fadeUp 0.7s var(--ease, cubic-bezier(0.4, 0, 0.2, 1)) forwards;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+.stagger > *:nth-child(1) { --i: 0; }
+.stagger > *:nth-child(2) { --i: 1; }
+.stagger > *:nth-child(3) { --i: 2; }
+.stagger > *:nth-child(4) { --i: 3; }
+.stagger > *:nth-child(5) { --i: 4; }
+.stagger > *:nth-child(6) { --i: 5; }
+
+/* Reveal-on-scroll pattern — JS toggles .in */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s var(--ease, cubic-bezier(0.4, 0, 0.2, 1)),
+              transform 0.7s var(--ease, cubic-bezier(0.4, 0, 0.2, 1));
+  will-change: opacity, transform;
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Soft float for icon flourishes */
+.float-soft {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Card hover lift */
+.lift {
+  transition: transform 0.35s var(--ease, cubic-bezier(0.4, 0, 0.2, 1)),
+              box-shadow 0.35s var(--ease, cubic-bezier(0.4, 0, 0.2, 1));
+}
+.lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Accordion (details) — smooth expand using interpolate-size where supported */
+@supports (interpolate-size: allow-keywords) {
+  :root {
+    interpolate-size: allow-keywords;
+  }
+  details.faq-item > .faq-body {
+    block-size: 0;
+    overflow: hidden;
+    transition: block-size 0.35s var(--ease, cubic-bezier(0.4, 0, 0.2, 1));
+  }
+  details.faq-item[open] > .faq-body {
+    block-size: auto;
+  }
+}
+
+details.faq-item > summary .faq-chevron {
+  transition: transform 0.3s var(--ease, cubic-bezier(0.4, 0, 0.2, 1));
+}
+details.faq-item[open] > summary .faq-chevron {
+  transform: rotate(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.in,
+  .stagger > *,
+  .lift,
+  .float-soft,
+  details.faq-item > .faq-body {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
