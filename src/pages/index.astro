@@ -1,58 +1,156 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import Hero from '../components/Hero.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import CourseCard from '../components/CourseCard.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+import StatCounter from '../components/islands/StatCounter.tsx';
+import TestimonialCarousel from '../components/islands/TestimonialCarousel.tsx';
+
+const cursos = await getCollection('cursos');
+const featured = cursos
+  .filter((c) => c.data.featured)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 4);
+
+const modalityLabel = {
+  online: 'En línea',
+  presencial: 'Presencial',
+  hibrido: 'Híbrido',
+};
+
+const testimonials = [
+  {
+    quote:
+      'Finalizo este curso con mis expectativas ampliamente superadas. La práctica guiada por expertos fue invaluable.',
+    author: 'Participante EuSim Nivel 1',
+    role: 'Cohorte CDMX',
+  },
+  {
+    quote:
+      'Un curso muy dinámico, con un balance perfecto entre teoría y práctica. El equipo es excelente.',
+    author: 'Participante EuSim Nivel 1',
+    role: 'Cohorte CDMX',
+  },
+  {
+    quote:
+      'El profesionalismo y la seguridad psicológica que se sintieron durante el curso marcaron una gran diferencia.',
+    author: 'Participante EuSim Nivel 1',
+    role: 'Cohorte CDMX',
+  },
+  {
+    quote:
+      'Me encantó la estructura del curso, el ambiente cálido de los instructores y la retroalimentación constante.',
+    author: 'Participante EuSim Nivel 1',
+    role: 'Cohorte CDMX',
+  },
+];
 ---
 
 <BaseLayout title="SimAcademy — Educación en simulación clínica para LATAM">
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
-    <p class="text-sm font-medium tracking-wider uppercase text-brand-green mb-4">
-      Bienvenida
-    </p>
-    <h1 class="font-display text-4xl sm:text-6xl font-semibold text-ink-900 max-w-3xl mb-6">
-      Educación en simulación clínica, hecha en LATAM.
-    </h1>
-    <p class="text-lg text-ink-500 max-w-2xl mb-10">
-      SimAcademy forma a profesionales de la salud a través de simulación,
-      debriefing estructurado y comunidades de práctica. Este sitio está en
-      construcción — pronto compartiremos cursos, recursos y eventos.
-    </p>
-    <div class="flex flex-wrap gap-3">
-      <a
-        href="https://wa.me/524422184424"
-        target="_blank"
-        rel="noopener"
-        class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-brand-green text-white text-sm font-semibold shadow-sm hover:bg-brand-green-dark transition-colors"
-      >
-        Hablar por WhatsApp
-      </a>
-      <a
-        href="https://info.simacademy.lat"
-        class="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-ink-300 text-ink-700 text-sm font-semibold hover:border-brand-purple hover:text-brand-purple transition-colors"
-      >
-        Conocer cursos actuales
-      </a>
-    </div>
+  <Hero
+    eyebrow="SimAcademy"
+    title="Educación en simulación clínica para LATAM."
+    subtitle="Formamos a profesionales de la salud a través de simulación, debriefing estructurado y comunidades de práctica."
+    ctaPrimary={{ label: 'Ver cursos', href: '/oferta-educativa' }}
+    ctaSecondary={{
+      label: 'Hablar con un asesor',
+      href: 'https://wa.me/524422184424',
+    }}
+  />
+
+  <section class="reveal py-20 sm:py-28">
+    <Container variant="narrow">
+      <SectionTitle
+        eyebrow="Nuestra filosofía"
+        title="Practicar lo difícil, en un lugar seguro."
+        align="center"
+      />
+      <div class="mt-8 space-y-5 text-lg text-ink-700 leading-relaxed text-center max-w-2xl mx-auto">
+        <p>
+          La medicina se aprende cuidando personas. Pero hay momentos —los más
+          difíciles, los más raros, los más definitivos— en los que no hay
+          espacio para equivocarse. La simulación clínica existe para esos
+          momentos: para que el primer error nunca caiga sobre un paciente real.
+        </p>
+        <p>
+          En SimAcademy diseñamos programas de formación basados en simulación,
+          debriefing estructurado y educación continua, con instructores
+          certificados y faculty internacional. Trabajamos en español, desde
+          LATAM, con estándares globales.
+        </p>
+      </div>
+    </Container>
   </section>
 
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <article class="p-6 rounded-2xl bg-surface shadow-sm border border-ink-300/30">
-        <h2 class="font-display text-xl font-semibold mb-2">Cursos</h2>
-        <p class="text-sm text-ink-500">
-          Programas presenciales y en línea con casos basados en evidencia.
-        </p>
-      </article>
-      <article class="p-6 rounded-2xl bg-surface shadow-sm border border-ink-300/30">
-        <h2 class="font-display text-xl font-semibold mb-2">Recursos</h2>
-        <p class="text-sm text-ink-500">
-          Guías y materiales para instructores y facilitadores.
-        </p>
-      </article>
-      <article class="p-6 rounded-2xl bg-surface shadow-sm border border-ink-300/30">
-        <h2 class="font-display text-xl font-semibold mb-2">Comunidad</h2>
-        <p class="text-sm text-ink-500">
-          Red de educadores en simulación clínica en Latinoamérica.
-        </p>
-      </article>
-    </div>
+  <section class="reveal bg-[var(--gradient-soft)] py-20 sm:py-24">
+    <Container>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-10">
+        <StatCounter client:visible value={7} suffix="+" label="Años de operación" />
+        <StatCounter client:visible value={1200} suffix="+" label="Profesionales formados" />
+        <StatCounter client:visible value={80} suffix="+" label="Cursos impartidos" />
+        <StatCounter client:visible value={15} suffix="+" label="Centros aliados" />
+      </div>
+    </Container>
   </section>
+
+  <section class="reveal py-20 sm:py-28">
+    <Container>
+      <div class="flex flex-wrap items-end justify-between gap-6 mb-12">
+        <SectionTitle
+          eyebrow="Oferta educativa"
+          title="Próximos cursos"
+          subtitle="Programas presenciales, en línea e híbridos para profesionales de la salud, educadores y centros de simulación."
+        />
+        <a
+          href="/oferta-educativa"
+          class="text-sm font-semibold text-brand-purple inline-flex items-center gap-1 hover:gap-2 transition-all"
+        >
+          Ver todos
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {featured.map((curso) => (
+          <CourseCard
+            title={curso.data.shortTitle ?? curso.data.title}
+            description={curso.data.description}
+            modality={modalityLabel[curso.data.modality]}
+            dates={curso.data.dates}
+            price={curso.data.price}
+            slug={curso.id}
+            href={curso.data.href}
+            image={curso.data.image}
+            accent={curso.data.accent}
+          />
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <section class="reveal py-20 sm:py-28 bg-surface">
+    <Container>
+      <SectionTitle
+        eyebrow="Voces de la comunidad"
+        title="Lo que dicen quienes ya pasaron por aquí."
+        align="center"
+        class="mx-auto mb-12"
+      />
+      <TestimonialCarousel client:load items={testimonials} />
+    </Container>
+  </section>
+
+  <CtaBlock
+    variant="purple"
+    title="Algo más que un curso."
+    description="Únete a la comunidad de educadores en simulación clínica de Latinoamérica. Hablemos de tu próximo proyecto."
+    ctaLabel="Hablar con SimAcademy"
+    ctaHref="https://wa.me/524422184424"
+  />
 </BaseLayout>
