@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import Hero from '../components/Hero.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+
+const beneficios = [
+  {
+    title: 'Red de práctica',
+    body:
+      'Mantente en contacto con profesionales que comparten el mismo lenguaje pedagógico y la misma exigencia clínica.',
+    icon: 'users',
+  },
+  {
+    title: 'Recursos exclusivos',
+    body:
+      'Acceso a materiales, guías y escenarios desarrollados por el faculty de SimAcademy.',
+    icon: 'library',
+  },
+  {
+    title: 'Educación continua',
+    body:
+      'Webinars, mesas de discusión clínica y oportunidades de recertificación o segundas instancias.',
+    icon: 'graduation',
+  },
+  {
+    title: 'Mentoría',
+    body:
+      'Espacios para resolver dudas con el faculty y otros instructores de la red EuSim.',
+    icon: 'compass',
+  },
+];
+---
+
+<BaseLayout
+  title="Comunidad — SimAcademy"
+  description="La comunidad SimAcademy: una red de profesionales de la salud que se siguen formando juntos después del curso."
+>
+  <Hero
+    eyebrow="Comunidad"
+    title="Algo más que un curso."
+    subtitle="SimAcademy es una red de profesionales de la salud y educadores en simulación clínica que continúan aprendiendo, debatiendo y formándose juntos."
+  />
+
+  <section class="reveal py-20 sm:py-28">
+    <Container variant="narrow">
+      <SectionTitle title="Qué es la comunidad." />
+      <div class="mt-6 space-y-5 text-lg text-ink-700 leading-relaxed">
+        <p>
+          Cuando alguien termina un curso con nosotros, no termina su
+          relación con SimAcademy. La formación en simulación clínica es un
+          camino largo: requiere práctica deliberada, conversaciones honestas
+          con pares y exposición continua a escenarios nuevos.
+        </p>
+        <p>
+          Por eso construimos comunidad — un espacio para que alumni,
+          instructores, faculty y centros aliados sigan conectados después
+          del último debriefing.
+        </p>
+        <!-- TODO Phase 7: definir narrativa final de la comunidad con JM (¿plataforma? ¿Discord? ¿lista de correo? ¿eventos?) -->
+      </div>
+    </Container>
+  </section>
+
+  <section class="reveal bg-[var(--gradient-soft)] py-20 sm:py-28">
+    <Container>
+      <SectionTitle
+        eyebrow="Qué incluye"
+        title="Beneficios de pertenecer."
+        align="center"
+        class="mx-auto mb-12"
+      />
+      <ul
+        class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto"
+        role="list"
+      >
+        {beneficios.map((b) => (
+          <li class="bg-surface rounded-[var(--r-md)] border border-ink-300/30 shadow-[var(--shadow-sm)] p-6 flex gap-4 items-start">
+            <span
+              class="flex-shrink-0 inline-flex items-center justify-center w-11 h-11 rounded-full bg-brand-green/10 text-brand-green"
+              aria-hidden="true"
+            >
+              {b.icon === 'users' && (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              )}
+              {b.icon === 'library' && (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6 4 14"/><path d="M12 6v14"/><path d="M8 8v12"/><path d="M4 4v16"/></svg>
+              )}
+              {b.icon === 'graduation' && (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+              )}
+              {b.icon === 'compass' && (
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+              )}
+            </span>
+            <div>
+              <h3 class="font-display text-xl font-semibold text-ink-900 mb-1">
+                {b.title}
+              </h3>
+              <p class="text-sm text-ink-700 leading-relaxed">{b.body}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </Container>
+  </section>
+
+  <section class="reveal py-20 sm:py-28">
+    <Container variant="narrow">
+      <SectionTitle eyebrow="Cómo unirse" title="¿Cómo formo parte?" />
+      <div class="mt-6 space-y-5 text-lg text-ink-700 leading-relaxed">
+        <p>
+          Si tomaste un curso con SimAcademy o estás interesado en
+          incorporarte como instructor, faculty o centro aliado, escríbenos
+          por WhatsApp. Te orientamos sobre el siguiente paso según tu
+          perfil.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <CtaBlock
+    variant="green"
+    title="Únete a la comunidad."
+    description="Hablemos de cómo seguir aprendiendo juntos."
+    ctaLabel="Escribir por WhatsApp"
+    ctaHref="https://wa.me/524422184424"
+  />
+</BaseLayout>
