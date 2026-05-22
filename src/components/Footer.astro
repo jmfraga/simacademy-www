@@ -4,16 +4,17 @@ const waHref = 'https://wa.me/524422184424';
 ---
 
 <footer class="mt-24 border-t border-ink-300/40 bg-surface">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-3 gap-10">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <!-- Brand + sub-sites -->
     <div>
       <div class="flex items-center gap-2 mb-3">
-        <img src="/logo.png" alt="SimAcademy" class="h-8 w-auto" width="32" height="32" />
+        <img src="/logo.png" alt="" class="h-8 w-auto" width="32" height="32" />
         <span class="font-display text-lg font-semibold text-ink-900">SimAcademy</span>
       </div>
       <p class="text-sm text-ink-500 mb-4">
         Educación en simulación clínica para LATAM.
       </p>
-      <ul class="space-y-1 text-sm">
+      <ul class="space-y-1.5 text-sm">
         <li><a href="https://info.simacademy.lat" class="text-ink-700 hover:text-brand-purple">info.simacademy.lat</a></li>
         <li><a href="https://blog.simacademy.lat" class="text-ink-700 hover:text-brand-purple">blog.simacademy.lat</a></li>
         <li><a href="https://moodle.simacademy.lat" class="text-ink-700 hover:text-brand-purple">moodle.simacademy.lat</a></li>
@@ -21,48 +22,66 @@ const waHref = 'https://wa.me/524422184424';
       </ul>
     </div>
 
+    <!-- Recursos -->
     <div>
       <h3 class="font-display text-base font-semibold text-ink-900 mb-3">Recursos</h3>
-      <ul class="space-y-1 text-sm">
+      <ul class="space-y-1.5 text-sm">
         <li><a href="/cancelacion" class="text-ink-700 hover:text-brand-purple">Política de cancelación</a></li>
         <li><a href="/conducta" class="text-ink-700 hover:text-brand-purple">Código de conducta</a></li>
         <li><a href="/etica" class="text-ink-700 hover:text-brand-purple">Ética y privacidad</a></li>
+        <li><a href="/contacto" class="text-ink-700 hover:text-brand-purple">Contacto</a></li>
       </ul>
     </div>
 
+    <!-- Síguenos -->
     <div>
-      <h3 class="font-display text-base font-semibold text-ink-900 mb-3">Contacto</h3>
-      <ul class="space-y-2 text-sm text-ink-700">
+      <h3 class="font-display text-base font-semibold text-ink-900 mb-3">Síguenos</h3>
+      <ul class="space-y-1.5 text-sm">
         <li>
-          <a href={waHref} target="_blank" rel="noopener" class="hover:text-brand-purple">
-            WhatsApp: +52 442 218 4424
+          <a href="https://www.instagram.com/simacademy.lat" target="_blank" rel="noopener" class="text-ink-700 hover:text-brand-purple">
+            Instagram
           </a>
         </li>
         <li>
-          <a href="mailto:hola@simacademy.lat" class="hover:text-brand-purple">hola@simacademy.lat</a>
+          <a href="https://www.linkedin.com/company/simacademy-latam" target="_blank" rel="noopener" class="text-ink-700 hover:text-brand-purple">
+            LinkedIn
+          </a>
         </li>
-        <li class="text-ink-500">Querétaro, México</li>
+        <li>
+          <a href={waHref} target="_blank" rel="noopener" class="text-ink-700 hover:text-brand-purple">
+            WhatsApp
+          </a>
+        </li>
+        <li>
+          <a href="mailto:hola@simacademy.lat" class="text-ink-700 hover:text-brand-purple">hola@simacademy.lat</a>
+        </li>
       </ul>
-      <div class="mt-4 flex items-center gap-4">
-        <a
-          href="https://www.instagram.com/simacademy.lat"
-          target="_blank"
-          rel="noopener"
-          class="text-ink-500 hover:text-brand-purple text-sm"
-          aria-label="Instagram"
+    </div>
+
+    <!-- Newsletter -->
+    <div>
+      <h3 class="font-display text-base font-semibold text-ink-900 mb-3">Suscríbete</h3>
+      <p class="text-sm text-ink-500 mb-3">
+        Recibe novedades sobre cursos, talleres y eventos.
+      </p>
+      <form action="#" method="post" class="flex flex-col gap-2" data-newsletter>
+        <label class="sr-only" for="newsletter-email">Correo electrónico</label>
+        <input
+          id="newsletter-email"
+          type="email"
+          name="email"
+          required
+          placeholder="tu@correo.com"
+          class="px-3 py-2.5 rounded-lg border border-ink-300 bg-paper text-sm text-ink-900 placeholder:text-ink-500 focus:outline-none focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20"
+        />
+        <button
+          type="submit"
+          class="px-4 py-2.5 rounded-lg bg-brand-purple text-white text-sm font-semibold hover:bg-brand-purple-dark transition-colors"
         >
-          @simacademy.lat
-        </a>
-        <a
-          href="https://www.linkedin.com/company/simacademy-latam"
-          target="_blank"
-          rel="noopener"
-          class="text-ink-500 hover:text-brand-purple text-sm"
-          aria-label="LinkedIn"
-        >
-          LinkedIn
-        </a>
-      </div>
+          Suscribirme
+        </button>
+        <p class="text-xs text-ink-500">No spam. Cancela cuando quieras.</p>
+      </form>
     </div>
   </div>
 

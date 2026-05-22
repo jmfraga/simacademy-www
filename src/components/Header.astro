@@ -1,5 +1,4 @@
 ---
-// Sticky top navigation. Mobile = hamburger that toggles a panel.
 const navLinks = [
   { href: '/', label: 'Inicio' },
   { href: '/sobre', label: 'Sobre' },
@@ -9,33 +8,51 @@ const navLinks = [
   { href: '/contacto', label: 'Contacto' },
 ];
 const waHref = 'https://wa.me/524422184424';
+
+const pathname = Astro.url.pathname;
+const isActive = (href: string) => {
+  if (href === '/') return pathname === '/' || pathname === '';
+  return pathname === href || pathname.startsWith(href + '/');
+};
 ---
 
 <header
-  class="sticky top-0 z-50 backdrop-blur-md bg-paper/85 border-b border-ink-300/40"
+  id="site-header"
+  data-scrolled="false"
+  class="sticky top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300 bg-paper/70 backdrop-blur-md border-b border-transparent data-[scrolled=true]:bg-paper/95 data-[scrolled=true]:shadow-sm data-[scrolled=true]:border-ink-300/40"
 >
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-    <a href="/" class="flex items-center gap-2" aria-label="SimAcademy inicio">
-      <img src="/logo.png" alt="SimAcademy" class="h-9 w-auto" width="36" height="36" />
+    <a href="/" class="flex items-center gap-2" aria-label="SimAcademy inicio" transition:name="site-logo">
+      <img src="/logo.png" alt="" class="h-9 w-auto" width="36" height="36" />
       <span class="font-display text-lg font-semibold text-ink-900 hidden sm:inline">
         SimAcademy
       </span>
     </a>
 
-    <nav class="hidden md:flex items-center gap-6" aria-label="Primaria">
-      {navLinks.map((l) => (
-        <a
-          href={l.href}
-          class="text-sm font-medium text-ink-700 hover:text-brand-purple transition-colors"
-        >
-          {l.label}
-        </a>
-      ))}
+    <nav class="hidden md:flex items-center gap-1" aria-label="Primaria">
+      {navLinks.map((l) => {
+        const active = isActive(l.href);
+        return (
+          <a
+            href={l.href}
+            aria-current={active ? 'page' : undefined}
+            class:list={[
+              'relative px-3 py-2 text-sm font-medium transition-colors',
+              active ? 'text-brand-purple' : 'text-ink-700 hover:text-brand-purple',
+            ]}
+          >
+            {l.label}
+            {active && (
+              <span class="absolute left-3 right-3 -bottom-0.5 h-0.5 rounded-full bg-brand-purple" aria-hidden="true"></span>
+            )}
+          </a>
+        );
+      })}
       <a
         href={waHref}
         target="_blank"
         rel="noopener"
-        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-green text-white text-sm font-semibold shadow-sm hover:bg-brand-green-dark transition-colors"
+        class="ml-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-green text-white text-sm font-semibold shadow-sm hover:bg-brand-green-dark transition-colors"
       >
         WhatsApp
       </a>
@@ -48,7 +65,7 @@ const waHref = 'https://wa.me/524422184424';
       aria-expanded="false"
       aria-controls="mobile-nav"
     >
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg id="nav-icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="3" y1="6" x2="21" y2="6"></line>
         <line x1="3" y1="12" x2="21" y2="12"></line>
         <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -56,21 +73,33 @@ const waHref = 'https://wa.me/524422184424';
     </button>
   </div>
 
-  <div id="mobile-nav" class="md:hidden hidden border-t border-ink-300/40 bg-paper">
-    <nav class="px-4 py-3 flex flex-col gap-2" aria-label="Móvil">
-      {navLinks.map((l) => (
-        <a
-          href={l.href}
-          class="px-3 py-2 rounded-md text-sm font-medium text-ink-700 hover:bg-ink-300/20"
-        >
-          {l.label}
-        </a>
-      ))}
+  <!-- Mobile full-screen overlay -->
+  <div
+    id="mobile-nav"
+    class="md:hidden fixed inset-0 top-16 z-40 bg-paper/98 backdrop-blur-md hidden flex-col"
+    aria-hidden="true"
+  >
+    <nav class="flex-1 overflow-y-auto px-6 py-8 flex flex-col gap-1" aria-label="Móvil">
+      {navLinks.map((l) => {
+        const active = isActive(l.href);
+        return (
+          <a
+            href={l.href}
+            aria-current={active ? 'page' : undefined}
+            class:list={[
+              'px-4 py-4 rounded-xl text-lg font-display font-medium transition-colors border-b border-ink-300/30',
+              active ? 'text-brand-purple' : 'text-ink-900 hover:text-brand-purple',
+            ]}
+          >
+            {l.label}
+          </a>
+        );
+      })}
       <a
         href={waHref}
         target="_blank"
         rel="noopener"
-        class="mt-2 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-brand-green text-white text-sm font-semibold"
+        class="mt-6 inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full bg-brand-green text-white text-base font-semibold"
       >
         WhatsApp
       </a>
@@ -79,11 +108,43 @@ const waHref = 'https://wa.me/524422184424';
 </header>
 
 <script>
-  const toggle = document.getElementById('nav-toggle');
-  const panel = document.getElementById('mobile-nav');
-  toggle?.addEventListener('click', () => {
-    if (!panel) return;
-    const open = panel.classList.toggle('hidden') === false;
-    toggle.setAttribute('aria-expanded', String(open));
-  });
+  // Sticky scroll style + mobile overlay toggle. Use Astro lifecycle so it
+  // works through View Transitions.
+  function initHeader() {
+    const header = document.getElementById('site-header');
+    const toggle = document.getElementById('nav-toggle');
+    const panel = document.getElementById('mobile-nav');
+
+    if (header && !(header as any).__scrollBound) {
+      const onScroll = () => {
+        header.dataset.scrolled = window.scrollY > 8 ? 'true' : 'false';
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+      (header as any).__scrollBound = true;
+    }
+
+    if (toggle && panel && !(toggle as any).__bound) {
+      const setOpen = (open: boolean) => {
+        panel.classList.toggle('hidden', !open);
+        panel.classList.toggle('flex', open);
+        panel.setAttribute('aria-hidden', String(!open));
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+        document.documentElement.style.overflow = open ? 'hidden' : '';
+      };
+      toggle.addEventListener('click', () => {
+        const isOpen = panel.classList.contains('hidden');
+        setOpen(isOpen);
+      });
+      panel.addEventListener('click', (e) => {
+        const t = e.target as HTMLElement;
+        if (t.tagName === 'A') setOpen(false);
+      });
+      (toggle as any).__bound = true;
+    }
+  }
+
+  initHeader();
+  document.addEventListener('astro:page-load', initHeader);
 </script>
