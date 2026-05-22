@@ -1,0 +1,239 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import Hero from '../components/Hero.astro';
+import CourseCard from '../components/CourseCard.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import StatCounter from '../components/islands/StatCounter.tsx';
+import TestimonialCarousel from '../components/islands/TestimonialCarousel.tsx';
+
+const courses = [
+  {
+    title: 'EuSim 2 — Educadores en simulación',
+    description:
+      'Programa internacional de formación de instructores. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    modality: 'Presencial',
+    dates: 'Sep 2026',
+    price: 'Desde $24,000 MXN',
+    slug: 'eusim-2',
+    href: 'https://info.simacademy.lat/eusim-2',
+    accent: 'purple' as const,
+  },
+  {
+    title: 'Debriefing estructurado',
+    description:
+      'Curso introductorio en facilitación de debriefing con marcos validados. Lorem ipsum dolor sit amet.',
+    modality: 'Híbrido',
+    dates: 'Nov 2026',
+    price: '$8,500 MXN',
+    slug: 'debriefing-estructurado',
+    href: 'https://info.simacademy.lat/debriefing',
+    accent: 'green' as const,
+  },
+  {
+    title: 'Simulación in situ',
+    description:
+      'Diseño de escenarios in situ en unidades hospitalarias. Lorem ipsum dolor sit amet, consectetur.',
+    modality: 'En línea',
+    dates: 'Ene 2027',
+    slug: 'simulacion-in-situ',
+    href: 'https://info.simacademy.lat/in-situ',
+    accent: 'gold' as const,
+  },
+  {
+    title: 'Diseño de escenarios clínicos',
+    description:
+      'Plantillas, checklists y prácticas para construir casos de alta fidelidad. Lorem ipsum.',
+    modality: 'Taller',
+    slug: 'diseno-escenarios',
+    href: 'https://info.simacademy.lat/diseno-escenarios',
+    accent: 'purple' as const,
+  },
+];
+
+const faq = [
+  {
+    question: '¿Los cursos otorgan constancia?',
+    answer:
+      'Sí. Todos nuestros cursos entregan constancia digital con folio único, validable en línea. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  },
+  {
+    question: '¿Tienen modalidad en línea?',
+    answer:
+      'Varios programas son híbridos o totalmente en línea. Consulta cada curso en info.simacademy.lat para detalles de modalidad y fechas.',
+  },
+  {
+    question: '¿Hay descuentos para grupos?',
+    answer:
+      'Ofrecemos esquemas grupales para instituciones a partir de 5 personas. Escríbenos por WhatsApp para una cotización personalizada.',
+  },
+  {
+    question: '¿Cuál es la política de cancelación?',
+    answer:
+      'Consulta nuestra política completa en /cancelacion. En términos generales aceptamos reembolsos hasta 7 días antes del curso.',
+  },
+];
+
+const testimonials = [
+  {
+    quote:
+      'El programa cambió la forma en que diseño escenarios. El debriefing estructurado se volvió parte natural de mi práctica docente.',
+    author: 'Dra. Ana López',
+    role: 'Coordinadora de simulación, Hospital Regional',
+  },
+  {
+    quote:
+      'La calidad de los facilitadores y la profundidad del marco teórico nos posicionó como referente regional en simulación clínica.',
+    author: 'Dr. Carlos Méndez',
+    role: 'Director académico, Centro Médico',
+  },
+  {
+    quote:
+      'Conocí una comunidad latinoamericana de educadores que me acompaña hasta el día de hoy. Vale cada minuto invertido.',
+    author: 'L.E. Patricia Ruiz',
+    role: 'Instructora en simulación, ENEO',
+  },
+];
+---
+
+<BaseLayout
+  title="Playground — SimAcademy design system"
+  description="Página interna de QA visual para componentes del design system."
+>
+  <!-- HERO with image -->
+  <Hero
+    eyebrow="Playground"
+    title="Design system de SimAcademy"
+    subtitle="Página interna para QA visual de cada componente. No incluida en navegación."
+    ctaPrimary={{ label: 'Ver todos los componentes', href: '#components' }}
+    ctaSecondary={{ label: 'Volver al inicio', href: '/' }}
+  />
+
+  <Container class="py-16" id="components">
+    <SectionTitle
+      eyebrow="01"
+      title="SectionTitle"
+      subtitle="Patrón de eyebrow + heading + subtítulo. Centrado y alineado."
+    />
+  </Container>
+
+  <Container class="py-8">
+    <SectionTitle
+      align="center"
+      eyebrow="Variante centrada"
+      title="Educación en simulación clínica"
+      subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    />
+  </Container>
+
+  <!-- CourseCard grid -->
+  <Container class="py-16">
+    <SectionTitle
+      eyebrow="02"
+      title="CourseCard"
+      subtitle="Grid de cursos con variantes de acento (purple, green, gold) y con/sin imagen."
+      class="mb-10"
+    />
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {courses.map((c) => <CourseCard {...c} />)}
+    </div>
+  </Container>
+
+  <!-- Stat counters -->
+  <Container class="py-16">
+    <SectionTitle
+      eyebrow="03"
+      title="StatCounter (island)"
+      subtitle="Hidratación on-visible; respeta prefers-reduced-motion."
+      class="mb-10"
+    />
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+      <StatCounter client:visible value={2400} suffix="+" label="Egresados" />
+      <StatCounter client:visible value={48} label="Cursos" />
+      <StatCounter client:visible value={12} label="Países LATAM" />
+      <StatCounter client:visible value={97} suffix="%" label="Satisfacción" />
+    </div>
+  </Container>
+
+  <!-- CTA blocks -->
+  <CtaBlock
+    title="¿Listo para formarte como educador en simulación?"
+    description="EuSim 2 abre convocatoria en septiembre. Cupos limitados."
+    ctaLabel="Inscribirme ahora"
+    ctaHref="https://info.simacademy.lat/eusim-2"
+    variant="purple"
+  />
+
+  <div class="h-px"></div>
+
+  <CtaBlock
+    title="Únete a la comunidad SimAcademy"
+    description="Red de educadores en simulación clínica para LATAM."
+    ctaLabel="Conocer más"
+    ctaHref="/comunidad"
+    variant="green"
+  />
+
+  <!-- Testimonials -->
+  <Container class="py-20">
+    <SectionTitle
+      eyebrow="05"
+      title="TestimonialCarousel (island)"
+      subtitle="Embla Carousel + autoplay con pausa en hover/focus."
+      class="mb-10 mx-auto"
+      align="center"
+    />
+    <TestimonialCarousel client:visible items={testimonials} />
+  </Container>
+
+  <!-- FAQ -->
+  <Container variant="narrow" class="py-16">
+    <SectionTitle
+      eyebrow="06"
+      title="Preguntas frecuentes"
+      subtitle="Accordion sin JS — usa <details> nativo + transición de altura."
+      class="mb-8"
+    />
+    <FaqAccordion items={faq} />
+  </Container>
+
+  <!-- Reveal demo -->
+  <Container class="py-16">
+    <SectionTitle
+      eyebrow="07"
+      title="Reveal on scroll"
+      subtitle="Cualquier .reveal entra cuando intersecta el viewport."
+      class="mb-10"
+    />
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div class="reveal p-6 rounded-2xl bg-surface border border-ink-300/30 shadow-sm">
+        <h3 class="font-display text-xl font-semibold mb-2">Tarjeta A</h3>
+        <p class="text-sm text-ink-500">Lorem ipsum dolor sit amet.</p>
+      </div>
+      <div class="reveal p-6 rounded-2xl bg-surface border border-ink-300/30 shadow-sm" style="transition-delay: 100ms">
+        <h3 class="font-display text-xl font-semibold mb-2">Tarjeta B</h3>
+        <p class="text-sm text-ink-500">Consectetur adipiscing elit.</p>
+      </div>
+      <div class="reveal p-6 rounded-2xl bg-surface border border-ink-300/30 shadow-sm" style="transition-delay: 200ms">
+        <h3 class="font-display text-xl font-semibold mb-2">Tarjeta C</h3>
+        <p class="text-sm text-ink-500">Sed do eiusmod tempor incididunt.</p>
+      </div>
+    </div>
+  </Container>
+
+  <!-- Containers demo -->
+  <Container variant="wide" class="py-12">
+    <SectionTitle
+      eyebrow="08"
+      title="Container variants"
+      subtitle="narrow (3xl), default (6xl), wide (7xl)."
+    />
+    <div class="mt-8 space-y-3">
+      <div class="max-w-3xl mx-auto h-2 bg-brand-purple/20 rounded-full"></div>
+      <div class="max-w-6xl mx-auto h-2 bg-brand-purple/40 rounded-full"></div>
+      <div class="max-w-7xl mx-auto h-2 bg-brand-purple rounded-full"></div>
+    </div>
+  </Container>
+</BaseLayout>
