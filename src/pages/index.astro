@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="SimAcademy — Educación en simulación clínica para LATAM">
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
+    <p class="text-sm font-medium tracking-wider uppercase text-brand-green mb-4">
+      Bienvenida
+    </p>
+    <h1 class="font-display text-4xl sm:text-6xl font-semibold text-ink-900 max-w-3xl mb-6">
+      Educación en simulación clínica, hecha en LATAM.
+    </h1>
+    <p class="text-lg text-ink-500 max-w-2xl mb-10">
+      SimAcademy forma a profesionales de la salud a través de simulación,
+      debriefing estructurado y comunidades de práctica. Este sitio está en
+      construcción — pronto compartiremos cursos, recursos y eventos.
+    </p>
+    <div class="flex flex-wrap gap-3">
+      <a
+        href="https://wa.me/524422184424"
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-brand-green text-white text-sm font-semibold shadow-sm hover:bg-brand-green-dark transition-colors"
+      >
+        Hablar por WhatsApp
+      </a>
+      <a
+        href="https://info.simacademy.lat"
+        class="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-ink-300 text-ink-700 text-sm font-semibold hover:border-brand-purple hover:text-brand-purple transition-colors"
+      >
+        Conocer cursos actuales
+      </a>
+    </div>
+  </section>
+
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <article class="p-6 rounded-2xl bg-surface shadow-sm border border-ink-300/30">
+        <h2 class="font-display text-xl font-semibold mb-2">Cursos</h2>
+        <p class="text-sm text-ink-500">
+          Programas presenciales y en línea con casos basados en evidencia.
+        </p>
+      </article>
+      <article class="p-6 rounded-2xl bg-surface shadow-sm border border-ink-300/30">
+        <h2 class="font-display text-xl font-semibold mb-2">Recursos</h2>
+        <p class="text-sm text-ink-500">
+          Guías y materiales para instructores y facilitadores.
+        </p>
+      </article>
+      <article class="p-6 rounded-2xl bg-surface shadow-sm border border-ink-300/30">
+        <h2 class="font-display text-xl font-semibold mb-2">Comunidad</h2>
+        <p class="text-sm text-ink-500">
+          Red de educadores en simulación clínica en Latinoamérica.
+        </p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

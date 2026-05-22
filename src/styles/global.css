@@ -1,0 +1,65 @@
+@import 'tailwindcss';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/playfair-display/400.css';
+@import '@fontsource/playfair-display/600.css';
+@import '@fontsource/playfair-display/700.css';
+@import './tokens.css';
+
+/* Tailwind v4 theme — expose tokens to utility classes */
+@theme {
+  --color-brand-purple: #6B21A8;
+  --color-brand-purple-dark: #4C1D95;
+  --color-brand-purple-light: #A855F7;
+  --color-brand-green: #059669;
+  --color-brand-green-dark: #047857;
+  --color-brand-green-light: #34D399;
+  --color-ink-900: #0F1419;
+  --color-ink-700: #2D3748;
+  --color-ink-500: #4A5568;
+  --color-ink-300: #CBD5E0;
+  --color-paper: #FAFBFC;
+  --color-surface: #FFFFFF;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Base reset / typography */
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--ink-900);
+  background-color: var(--paper);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  color: var(--ink-900);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+a {
+  color: var(--brand-purple);
+  text-decoration: none;
+  transition: color 0.2s var(--ease);
+}
+
+a:hover {
+  color: var(--brand-purple-dark);
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-purple);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}

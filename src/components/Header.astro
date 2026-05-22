@@ -1,0 +1,89 @@
+---
+// Sticky top navigation. Mobile = hamburger that toggles a panel.
+const navLinks = [
+  { href: '/', label: 'Inicio' },
+  { href: '/sobre', label: 'Sobre' },
+  { href: '/oferta', label: 'Oferta educativa' },
+  { href: '/recursos', label: 'Recursos' },
+  { href: '/comunidad', label: 'Comunidad' },
+  { href: '/contacto', label: 'Contacto' },
+];
+const waHref = 'https://wa.me/524422184424';
+---
+
+<header
+  class="sticky top-0 z-50 backdrop-blur-md bg-paper/85 border-b border-ink-300/40"
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+    <a href="/" class="flex items-center gap-2" aria-label="SimAcademy inicio">
+      <img src="/logo.png" alt="SimAcademy" class="h-9 w-auto" width="36" height="36" />
+      <span class="font-display text-lg font-semibold text-ink-900 hidden sm:inline">
+        SimAcademy
+      </span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-6" aria-label="Primaria">
+      {navLinks.map((l) => (
+        <a
+          href={l.href}
+          class="text-sm font-medium text-ink-700 hover:text-brand-purple transition-colors"
+        >
+          {l.label}
+        </a>
+      ))}
+      <a
+        href={waHref}
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-green text-white text-sm font-semibold shadow-sm hover:bg-brand-green-dark transition-colors"
+      >
+        WhatsApp
+      </a>
+    </nav>
+
+    <button
+      id="nav-toggle"
+      class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-ink-700 hover:bg-ink-300/20"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <div id="mobile-nav" class="md:hidden hidden border-t border-ink-300/40 bg-paper">
+    <nav class="px-4 py-3 flex flex-col gap-2" aria-label="Móvil">
+      {navLinks.map((l) => (
+        <a
+          href={l.href}
+          class="px-3 py-2 rounded-md text-sm font-medium text-ink-700 hover:bg-ink-300/20"
+        >
+          {l.label}
+        </a>
+      ))}
+      <a
+        href={waHref}
+        target="_blank"
+        rel="noopener"
+        class="mt-2 inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-brand-green text-white text-sm font-semibold"
+      >
+        WhatsApp
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const panel = document.getElementById('mobile-nav');
+  toggle?.addEventListener('click', () => {
+    if (!panel) return;
+    const open = panel.classList.toggle('hidden') === false;
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+</script>
