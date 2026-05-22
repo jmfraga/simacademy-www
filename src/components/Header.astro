@@ -1,17 +1,19 @@
 ---
+const B = import.meta.env.BASE_URL.replace(/\/$/, ''); // '' o '/simacademy-www'
 const navLinks = [
-  { href: '/', label: 'Inicio' },
-  { href: '/sobre', label: 'Sobre' },
-  { href: '/oferta', label: 'Oferta educativa' },
-  { href: '/recursos', label: 'Recursos' },
-  { href: '/comunidad', label: 'Comunidad' },
-  { href: '/contacto', label: 'Contacto' },
+  { href: `${B}/`, label: 'Inicio' },
+  { href: `${B}/sobre`, label: 'Sobre' },
+  { href: `${B}/oferta-educativa`, label: 'Oferta educativa' },
+  { href: `${B}/recursos`, label: 'Recursos' },
+  { href: `${B}/comunidad`, label: 'Comunidad' },
+  { href: `${B}/contacto`, label: 'Contacto' },
 ];
 const waHref = 'https://wa.me/524422184424';
 
 const pathname = Astro.url.pathname;
+const homePath = `${B}/`;
 const isActive = (href: string) => {
-  if (href === '/') return pathname === '/' || pathname === '';
+  if (href === homePath) return pathname === homePath || pathname === B || pathname === '/';
   return pathname === href || pathname.startsWith(href + '/');
 };
 ---
@@ -22,8 +24,8 @@ const isActive = (href: string) => {
   class="sticky top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-300 bg-paper/70 backdrop-blur-md border-b border-transparent data-[scrolled=true]:bg-paper/95 data-[scrolled=true]:shadow-sm data-[scrolled=true]:border-ink-300/40"
 >
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-    <a href="/" class="flex items-center gap-2" aria-label="SimAcademy inicio" transition:name="site-logo">
-      <img src="/logo.png" alt="" class="h-9 w-auto" width="36" height="36" />
+    <a href={`${B}/`} class="flex items-center gap-2" aria-label="SimAcademy inicio" transition:name="site-logo">
+      <img src={`${B}/logo.png`} alt="" class="h-9 w-auto" width="36" height="36" />
       <span class="font-display text-lg font-semibold text-ink-900 hidden sm:inline">
         SimAcademy
       </span>
