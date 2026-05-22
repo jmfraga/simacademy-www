@@ -1,0 +1,149 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/Container.astro';
+import Hero from '../components/Hero.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+
+const waMessage = encodeURIComponent(
+  'Hola SimAcademy, necesito iniciar la cancelación de mi inscripción a un curso.'
+);
+const waHref = `https://wa.me/524422184424?text=${waMessage}`;
+// TODO Phase 7: confirmar fecha de última actualización de la política con JM
+---
+
+<BaseLayout
+  title="Política de cancelación y reembolso — SimAcademy"
+  description="Política vigente de cancelación y devolución para los cursos de SimAcademy: ventanas de tiempo, montos reembolsables y proceso."
+>
+  <Hero
+    eyebrow="Políticas"
+    title="Política de cancelación y reembolso"
+    subtitle="Vigente para todos los cursos de SimAcademy."
+  />
+
+  <section class="reveal py-16 sm:py-24">
+    <Container variant="narrow">
+      <article class="prose-doc space-y-10 text-ink-700">
+        <section>
+          <h2 class="font-display text-2xl font-semibold text-ink-900 mb-3">
+            1. Alcance
+          </h2>
+          <p class="leading-relaxed">
+            Esta política aplica a todas las inscripciones a cursos, talleres y
+            programas ofrecidos por SimAcademy. Al inscribirte aceptas los
+            términos descritos a continuación. Toda cancelación debe
+            solicitarse por escrito a través de los canales oficiales de
+            contacto.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-2xl font-semibold text-ink-900 mb-4">
+            2. Ventanas de reembolso
+          </h2>
+          <p class="leading-relaxed mb-6">
+            El monto reembolsable depende de cuánto tiempo antes del inicio
+            del curso solicites la cancelación:
+          </p>
+
+          <ul class="grid gap-4 sm:grid-cols-3" role="list">
+            <li class="bg-surface rounded-[var(--r-md)] border border-ink-300/40 shadow-[var(--shadow-sm)] p-5">
+              <p class="font-display text-3xl font-semibold text-brand-green mb-1">90%</p>
+              <p class="text-sm font-medium text-ink-900 mb-1">de devolución</p>
+              <p class="text-sm text-ink-700 leading-relaxed">
+                Cancelaciones hasta <strong>4 semanas antes</strong> del inicio
+                del curso.
+              </p>
+            </li>
+            <li class="bg-surface rounded-[var(--r-md)] border border-ink-300/40 shadow-[var(--shadow-sm)] p-5">
+              <p class="font-display text-3xl font-semibold text-brand-purple mb-1">50%</p>
+              <p class="text-sm font-medium text-ink-900 mb-1">de devolución</p>
+              <p class="text-sm text-ink-700 leading-relaxed">
+                Cancelaciones realizadas <strong>entre 4 y 2 semanas antes</strong>
+                del inicio del curso.
+              </p>
+            </li>
+            <li class="bg-surface rounded-[var(--r-md)] border border-ink-300/40 shadow-[var(--shadow-sm)] p-5">
+              <p class="font-display text-3xl font-semibold text-ink-900 mb-1">0%</p>
+              <p class="text-sm font-medium text-ink-900 mb-1">sin devolución</p>
+              <p class="text-sm text-ink-700 leading-relaxed">
+                Cancelaciones a <strong>menos de 2 semanas</strong> del inicio
+                del curso.
+              </p>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="font-display text-2xl font-semibold text-ink-900 mb-3">
+            3. No-show
+          </h2>
+          <p class="leading-relaxed">
+            En caso de que una persona se inscriba y no se presente al curso,
+            no se realizarán devoluciones. El pago tampoco podrá aplicarse a
+            cursos futuros: una nueva inscripción requiere el pago completo
+            correspondiente.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-2xl font-semibold text-ink-900 mb-3">
+            4. Cambios de cohorte
+          </h2>
+          <p class="leading-relaxed">
+            Si necesitas cambiar de cohorte por motivos justificados, podemos
+            evaluar reubicarte en una edición futura del mismo curso, sujeto a
+            disponibilidad y a la ventana de tiempo en la que se solicite. Los
+            cambios solicitados con menos de 2 semanas de anticipación pueden
+            no ser posibles o estar sujetos a un cargo administrativo.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-2xl font-semibold text-ink-900 mb-3">
+            5. Casos especiales
+          </h2>
+          <p class="leading-relaxed">
+            En situaciones de fuerza mayor (emergencias médicas, fallecimiento
+            de un familiar directo, desastres naturales) podemos evaluar
+            excepciones a esta política caso por caso. Solicitamos enviar la
+            documentación correspondiente al momento de pedir la cancelación.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-2xl font-semibold text-ink-900 mb-3">
+            6. Tiempos y proceso de reembolso
+          </h2>
+          <p class="leading-relaxed">
+            Una vez aprobada la cancelación, el reembolso se procesa al mismo
+            medio de pago utilizado en la inscripción. El tiempo de
+            acreditación depende del banco emisor (típicamente entre 5 y 15
+            días hábiles).
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-2xl font-semibold text-ink-900 mb-3">
+            7. Contacto
+          </h2>
+          <p class="leading-relaxed">
+            Para iniciar una cancelación o resolver dudas sobre esta política,
+            escríbenos por
+            <a href={waHref} target="_blank" rel="noopener" class="text-brand-purple hover:underline font-medium">WhatsApp</a>
+            o desde la página de
+            <a href="/contacto" class="text-brand-purple hover:underline font-medium">contacto</a>.
+          </p>
+        </section>
+      </article>
+    </Container>
+  </section>
+
+  <CtaBlock
+    variant="purple"
+    title="¿Necesitas iniciar una cancelación?"
+    description="Cuéntanos por WhatsApp el curso y la fecha; revisamos tu caso y te confirmamos el monto reembolsable."
+    ctaLabel="Iniciar cancelación por WhatsApp"
+    ctaHref={waHref}
+  />
+</BaseLayout>
