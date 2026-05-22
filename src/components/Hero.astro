@@ -1,0 +1,89 @@
+---
+import Container from './Container.astro';
+
+interface CTA {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle: string;
+  ctaPrimary?: CTA;
+  ctaSecondary?: CTA;
+  image?: { src: string; alt: string };
+}
+
+const { eyebrow, title, subtitle, ctaPrimary, ctaSecondary, image } = Astro.props;
+const hasImage = !!image;
+---
+
+<section
+  class:list={[
+    'relative overflow-hidden',
+    !hasImage && 'bg-[var(--gradient-soft)]',
+  ]}
+>
+  <Container class="py-16 sm:py-24 lg:py-32">
+    <div
+      class:list={[
+        'grid gap-10 lg:gap-16 items-center',
+        hasImage ? 'lg:grid-cols-2' : 'lg:grid-cols-1 text-center max-w-3xl mx-auto',
+      ]}
+    >
+      <div class="stagger">
+        {eyebrow && (
+          <p class="text-xs sm:text-sm font-semibold tracking-[0.18em] uppercase text-brand-purple">
+            {eyebrow}
+          </p>
+        )}
+        <h1
+          class="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold text-ink-900 leading-[1.05]"
+          transition:name="hero-title"
+        >
+          {title}
+        </h1>
+        <p class="text-lg sm:text-xl text-ink-700 leading-relaxed max-w-2xl">
+          {subtitle}
+        </p>
+        {(ctaPrimary || ctaSecondary) && (
+          <div
+            class:list={[
+              'flex flex-wrap gap-3 pt-2',
+              !hasImage && 'justify-center',
+            ]}
+          >
+            {ctaPrimary && (
+              <a
+                href={ctaPrimary.href}
+                class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-brand-purple text-white text-sm font-semibold shadow-[var(--shadow-brand)] hover:bg-brand-purple-dark transition-colors"
+              >
+                {ctaPrimary.label}
+              </a>
+            )}
+            {ctaSecondary && (
+              <a
+                href={ctaSecondary.href}
+                class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-ink-300 text-ink-700 text-sm font-semibold bg-surface/60 hover:border-brand-purple hover:text-brand-purple transition-colors"
+              >
+                {ctaSecondary.label}
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+
+      {hasImage && image && (
+        <div class="relative">
+          <img
+            src={image.src}
+            alt={image.alt}
+            class="w-full h-auto rounded-[var(--r-lg)] shadow-[var(--shadow-lg)]"
+            loading="eager"
+          />
+        </div>
+      )}
+    </div>
+  </Container>
+</section>

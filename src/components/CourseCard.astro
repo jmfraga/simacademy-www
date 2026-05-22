@@ -1,0 +1,99 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  modality: string;
+  dates?: string;
+  price?: string;
+  slug: string;
+  href: string;
+  image?: string;
+  accent?: 'purple' | 'green' | 'gold';
+}
+
+const {
+  title,
+  description,
+  modality,
+  dates,
+  price,
+  slug,
+  href,
+  image,
+  accent = 'purple',
+} = Astro.props;
+
+const accentClass = {
+  purple: 'text-brand-purple',
+  green: 'text-brand-green',
+  gold: 'text-[var(--accent-gold)]',
+}[accent];
+
+const accentBg = {
+  purple: 'bg-brand-purple/10',
+  green: 'bg-brand-green/10',
+  gold: 'bg-[var(--accent-gold-soft)]',
+}[accent];
+---
+
+<article
+  class="lift group relative overflow-hidden rounded-[var(--r-md)] bg-surface border border-ink-300/30 shadow-[var(--shadow-sm)] flex flex-col"
+  data-slug={slug}
+>
+  {image ? (
+    <div class="aspect-[16/9] overflow-hidden bg-ink-300/20">
+      <img
+        src={image}
+        alt=""
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+        loading="lazy"
+      />
+    </div>
+  ) : (
+    <div class={`aspect-[16/9] ${accentBg} flex items-center justify-center`}>
+      <span class={`font-display text-2xl ${accentClass}`}>SimAcademy</span>
+    </div>
+  )}
+
+  <div class="p-6 flex flex-col flex-1 gap-3">
+    <div class="flex flex-wrap gap-2 text-xs">
+      <span class={`px-2.5 py-1 rounded-full ${accentBg} ${accentClass} font-semibold uppercase tracking-wider`}>
+        {modality}
+      </span>
+      {dates && (
+        <span class="px-2.5 py-1 rounded-full bg-ink-300/30 text-ink-700 font-medium">
+          {dates}
+        </span>
+      )}
+    </div>
+
+    <h3 class="font-display text-xl font-semibold text-ink-900 leading-snug">
+      <a
+        href={href}
+        class="stretched-link before:absolute before:inset-0 before:content-[''] hover:text-brand-purple transition-colors"
+        aria-label={`Ver detalles del curso ${title}`}
+      >
+        {title}
+      </a>
+    </h3>
+
+    <p class="text-sm text-ink-700 leading-relaxed flex-1">
+      {description}
+    </p>
+
+    <div class="flex items-center justify-between pt-3 mt-auto border-t border-ink-300/30">
+      {price ? (
+        <span class="text-sm font-semibold text-ink-900">{price}</span>
+      ) : (
+        <span></span>
+      )}
+      <span class={`text-sm font-semibold ${accentClass} inline-flex items-center gap-1`}>
+        Ver detalles
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-0.5">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </span>
+    </div>
+  </div>
+</article>
