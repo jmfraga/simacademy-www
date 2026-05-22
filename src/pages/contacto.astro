@@ -3,6 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Container from '../components/Container.astro';
 import Hero from '../components/Hero.astro';
 import CtaBlock from '../components/CtaBlock.astro';
+import { localBusinessLd } from '../utils/seo';
+
+const businessLd = localBusinessLd(Astro.site!);
 
 const waNumber = '+52 442 218 4424';
 const waHref = 'https://wa.me/524422184424';
@@ -20,6 +23,7 @@ const formspreeAction = 'https://formspree.io/f/PLACEHOLDER_FORM_ID';
 <BaseLayout
   title="Contacto — SimAcademy"
   description="Habla con SimAcademy. Envía tu duda por formulario, WhatsApp o correo y diseñamos juntos el siguiente paso de tu formación."
+  structuredData={[businessLd]}
 >
   <Hero
     eyebrow="Contacto"

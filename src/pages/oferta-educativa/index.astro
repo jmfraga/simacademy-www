@@ -5,6 +5,7 @@ import Container from '../../components/Container.astro';
 import SectionTitle from '../../components/SectionTitle.astro';
 import CourseCard from '../../components/CourseCard.astro';
 import CtaBlock from '../../components/CtaBlock.astro';
+import { courseLd } from '../../utils/seo';
 
 const cursos = (await getCollection('cursos')).sort(
   (a, b) => a.data.order - b.data.order
@@ -15,11 +16,26 @@ const modalityLabel = {
   presencial: 'Presencial',
   hibrido: 'Híbrido',
 };
+
+const siteUrl = Astro.site!;
+const cursosLd = cursos.map((c) =>
+  courseLd(
+    {
+      title: c.data.title,
+      description: c.data.description,
+      modality: c.data.modality,
+      href: c.data.href,
+      dates: c.data.dates,
+    },
+    siteUrl,
+  ),
+);
 ---
 
 <BaseLayout
   title="Oferta educativa · SimAcademy"
   description="Programas de SimAcademy en simulación clínica, debriefing, mindfulness, IA y formación de actores. Presenciales, en línea e híbridos."
+  structuredData={cursosLd}
 >
   <section class="bg-[var(--gradient-soft)] py-16 sm:py-24">
     <Container>

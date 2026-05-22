@@ -8,12 +8,27 @@ import CourseCard from '../components/CourseCard.astro';
 import CtaBlock from '../components/CtaBlock.astro';
 import StatCounter from '../components/islands/StatCounter.tsx';
 import TestimonialCarousel from '../components/islands/TestimonialCarousel.tsx';
+import { courseLd } from '../utils/seo';
 
 const cursos = await getCollection('cursos');
 const featured = cursos
   .filter((c) => c.data.featured)
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 4);
+
+const siteUrl = Astro.site!;
+const featuredLd = featured.map((c) =>
+  courseLd(
+    {
+      title: c.data.title,
+      description: c.data.description,
+      modality: c.data.modality,
+      href: c.data.href,
+      dates: c.data.dates,
+    },
+    siteUrl,
+  ),
+);
 
 const modalityLabel = {
   online: 'En línea',
@@ -49,7 +64,11 @@ const testimonials = [
 ];
 ---
 
-<BaseLayout title="SimAcademy — Educación en simulación clínica para LATAM">
+<BaseLayout
+  title="SimAcademy — Educación en simulación clínica para LATAM"
+  description="SimAcademy: formación basada en simulación, debriefing estructurado y educación médica continua para profesionales de la salud en Latinoamérica."
+  structuredData={featuredLd}
+>
   <Hero
     eyebrow="SimAcademy"
     title="Educación en simulación clínica para LATAM."
