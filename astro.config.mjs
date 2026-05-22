@@ -10,7 +10,9 @@ export default defineConfig({
   trailingSlash: 'ignore',
   integrations: [
     react({ include: ['**/*.tsx'] }),
-    sitemap(),
+    sitemap({
+      filter: (page) => !page.includes('/playground'),
+    }),
   ],
   vite: {
     plugins: [tailwindcss()],

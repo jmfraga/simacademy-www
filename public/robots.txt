@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /playground
 
 Sitemap: https://www.simacademy.lat/sitemap-index.xml
