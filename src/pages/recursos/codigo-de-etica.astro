@@ -1,0 +1,241 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/Container.astro';
+import Hero from '../../components/Hero.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+
+const principios = [
+  {
+    id: '2.1',
+    title: 'Profesionalismo',
+    lead:
+      'Actuamos con integridad, responsabilidad y compromiso en todas nuestras actividades educativas y profesionales.',
+    items: [
+      'Cumplimos con los compromisos académicos y logísticos adquiridos.',
+      'Mantenemos puntualidad, preparación y respeto en cada intervención.',
+      'Evitamos cualquier conducta que afecte la reputación de SimAcademy.',
+    ],
+  },
+  {
+    id: '2.2',
+    title: 'Respeto y trato digno',
+    lead:
+      'Promovemos un ambiente seguro, inclusivo y respetuoso para todos los participantes.',
+    items: [
+      'Tratamos a estudiantes, colegas y personal con dignidad.',
+      'Fomentamos la diversidad, equidad e inclusión.',
+      'No toleramos discriminación, acoso o conductas intimidatorias.',
+    ],
+  },
+  {
+    id: '2.3',
+    title: 'Enfoque en el aprendizaje',
+    lead:
+      'Priorizamos el desarrollo significativo de competencias en los participantes.',
+    items: [
+      'Diseñamos y facilitamos experiencias centradas en el estudiante.',
+      'Promovemos el pensamiento crítico, la reflexión y el aprendizaje activo.',
+      'Evitamos prácticas educativas punitivas o humillantes.',
+    ],
+  },
+  {
+    id: '2.4',
+    title: 'Seguridad psicológica y del paciente',
+    lead:
+      'Reconocemos que la simulación clínica es un espacio para aprender sin riesgo.',
+    items: [
+      'Garantizamos entornos de aprendizaje seguros emocionalmente.',
+      'Facilitamos debriefings respetuosos, estructurados y constructivos.',
+      'Promovemos la transferencia del aprendizaje a la práctica clínica segura.',
+    ],
+  },
+  {
+    id: '2.5',
+    title: 'Honestidad académica',
+    lead: 'Actuamos con transparencia en la generación y uso del conocimiento.',
+    items: [
+      'Reconocemos adecuadamente fuentes y contribuciones.',
+      'Evitamos plagio, falsificación o manipulación de información.',
+      'Declaramos conflictos de interés cuando existan.',
+    ],
+  },
+  {
+    id: '2.6',
+    title: 'Confidencialidad',
+    lead: 'Protegemos la información sensible derivada de nuestras actividades.',
+    items: [
+      'Resguardamos datos de participantes, instituciones y escenarios clínicos.',
+      'No compartimos información sin autorización expresa.',
+      'Respetamos la privacidad en simulaciones, evaluaciones y discusiones.',
+    ],
+  },
+  {
+    id: '2.7',
+    title: 'Colaboración y trabajo en equipo',
+    lead:
+      'Fomentamos relaciones profesionales basadas en confianza y cooperación.',
+    items: [
+      'Valoramos el trabajo interdisciplinario.',
+      'Comunicamos de forma clara, oportuna y respetuosa.',
+      'Contribuimos activamente al logro de objetivos comunes.',
+    ],
+  },
+  {
+    id: '2.8',
+    title: 'Mejora continua',
+    lead: 'Nos comprometemos con el desarrollo profesional permanente.',
+    items: [
+      'Actualizamos nuestras competencias educativas y clínicas.',
+      'Aceptamos y promovemos la retroalimentación constructiva.',
+      'Innovamos en metodologías y herramientas educativas.',
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Código de ética — SimAcademy"
+  description="Principios y estándares éticos que guían el actuar de los colaboradores de SimAcademy."
+>
+  <Hero
+    eyebrow="Recursos"
+    title="Código de ética"
+    subtitle="Profesores y colaboradores de SimAcademy."
+  />
+
+  <section class="reveal py-16 sm:py-24">
+    <Container variant="narrow">
+      <article class="space-y-10 text-ink-700">
+        <section>
+          <h2 class="font-display text-2xl font-semibold text-ink-900 mb-3">
+            1. Propósito
+          </h2>
+          <p class="leading-relaxed">
+            Este código establece los principios y estándares de conducta que
+            guían el actuar de todas las personas que colaboran con
+            SimAcademy, con el objetivo de asegurar una educación de alta
+            calidad, ética y centrada en el aprendizaje y la seguridad del
+            paciente.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-2xl font-semibold text-ink-900 mb-5">
+            2. Principios fundamentales
+          </h2>
+          <div class="space-y-7">
+            {principios.map((p) => (
+              <div>
+                <h3 class="font-display text-lg font-semibold text-ink-900 mb-1">
+                  {p.id}. {p.title}
+                </h3>
+                <p class="leading-relaxed mb-2">{p.lead}</p>
+                <ul class="list-disc pl-6 space-y-1.5 leading-relaxed">
+                  {p.items.map((i) => <li>{i}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <h2 class="font-display text-2xl font-semibold text-ink-900 mb-3">
+            3. Conductas esperadas en simulación clínica
+          </h2>
+          <ul class="list-disc pl-6 space-y-2 leading-relaxed">
+            <li>
+              Preparar adecuadamente los escenarios y objetivos de aprendizaje.
+            </li>
+            <li>
+              Facilitar debriefings basados en evidencia (por ejemplo, enfoque
+              reflexivo, no punitivo).
+            </li>
+            <li>
+              Mantener coherencia entre objetivos, ejecución y evaluación.
+            </li>
+            <li>Cuidar el realismo sin comprometer la seguridad emocional.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="font-display text-2xl font-semibold text-ink-900 mb-3">
+            4. Conflictos de interés
+          </h2>
+          <p class="leading-relaxed">
+            Los colaboradores deberán declarar cualquier relación personal,
+            académica o comercial que pueda influir en su desempeño o en la
+            toma de decisiones dentro de SimAcademy.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="font-display text-2xl font-semibold text-ink-900 mb-3">
+            5. Uso de marca y representación institucional
+          </h2>
+          <ul class="list-disc pl-6 space-y-2 leading-relaxed">
+            <li>
+              Representar a SimAcademy con profesionalismo en todos los
+              espacios.
+            </li>
+            <li>No utilizar la marca para fines personales sin autorización.</li>
+            <li>
+              Alinear mensajes y contenidos con los valores institucionales.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="font-display text-2xl font-semibold text-ink-900 mb-3">
+            6. Incumplimiento
+          </h2>
+          <p class="leading-relaxed mb-3">
+            El incumplimiento de este código podrá derivar en:
+          </p>
+          <ul class="list-disc pl-6 space-y-2 leading-relaxed">
+            <li>Retroalimentación formal</li>
+            <li>Suspensión de actividades</li>
+            <li>Terminación de la colaboración</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="font-display text-2xl font-semibold text-ink-900 mb-3">
+            7. Compromiso
+          </h2>
+          <p class="leading-relaxed">
+            Todos los profesores y colaboradores de SimAcademy se comprometen
+            a conocer, respetar y promover este Código de Ética en todas sus
+            actividades.
+          </p>
+        </section>
+      </article>
+
+      <div class="mt-12 rounded-[var(--r-md)] border border-ink-300/40 bg-surface p-5 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <p class="font-semibold text-ink-900">Versión PDF descargable</p>
+          <p class="text-sm text-ink-700">
+            Próximamente — pídelo por WhatsApp mientras tanto.
+          </p>
+        </div>
+        <a
+          href="https://wa.me/524422184424"
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-ink-300 text-ink-700 text-sm font-semibold bg-paper hover:border-brand-purple hover:text-brand-purple transition-colors"
+          aria-label="Solicitar PDF del código de ética por WhatsApp"
+        >
+          Solicitar PDF
+        </a>
+        <!-- TODO Phase 7: subir PDF firmado a /public/docs/codigo-de-etica.pdf y reemplazar este bloque por download link -->
+      </div>
+    </Container>
+  </section>
+
+  <CtaBlock
+    variant="purple"
+    title="¿Vas a colaborar con SimAcademy?"
+    description="Conocer y suscribirte a este código forma parte de tu integración como faculty o colaborador."
+    ctaLabel="Hablar con nosotros"
+    ctaHref="https://wa.me/524422184424"
+  />
+</BaseLayout>
