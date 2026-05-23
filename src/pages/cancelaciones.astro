@@ -8,7 +8,7 @@ const waMessage = encodeURIComponent(
   'Hola SimAcademy, necesito iniciar la cancelación de mi inscripción a un curso.'
 );
 const waHref = `https://wa.me/524422184424?text=${waMessage}`;
-// TODO Phase 7: confirmar fecha de última actualización de la política con JM
+const lastUpdated = 'Enero 2026';
 ---
 
 <BaseLayout
@@ -18,7 +18,7 @@ const waHref = `https://wa.me/524422184424?text=${waMessage}`;
   <Hero
     eyebrow="Políticas"
     title="Política de cancelación y reembolso"
-    subtitle="Vigente para todos los cursos de SimAcademy."
+    subtitle={`Vigente para todos los cursos de SimAcademy. Última actualización: ${lastUpdated}.`}
   />
 
   <section class="reveal py-16 sm:py-24">
