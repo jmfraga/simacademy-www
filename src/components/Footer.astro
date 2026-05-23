@@ -60,30 +60,15 @@ const waHref = 'https://wa.me/524422184424';
       </ul>
     </div>
 
-    <!-- Newsletter -->
+    <!-- Newsletter (Clientify superform) -->
     <div>
       <h3 class="font-display text-base font-semibold text-ink-900 mb-3">Suscríbete</h3>
       <p class="text-sm text-ink-500 mb-3">
         Recibe novedades sobre cursos, talleres y eventos.
       </p>
-      <form action="#" method="post" class="flex flex-col gap-2" data-newsletter>
-        <label class="sr-only" for="newsletter-email">Correo electrónico</label>
-        <input
-          id="newsletter-email"
-          type="email"
-          name="email"
-          required
-          placeholder="tu@correo.com"
-          class="px-3 py-2.5 rounded-lg border border-ink-300 bg-paper text-sm text-ink-900 placeholder:text-ink-500 focus:outline-none focus:border-brand-purple focus:ring-2 focus:ring-brand-purple/20"
-        />
-        <button
-          type="submit"
-          class="px-4 py-2.5 rounded-lg bg-brand-purple text-white text-sm font-semibold hover:bg-brand-purple-dark transition-colors"
-        >
-          Suscribirme
-        </button>
-        <p class="text-xs text-ink-500">No spam. Cancela cuando quieras.</p>
-      </form>
+      <div data-clientify-newsletter></div>
+      <script is:inline type="text/javascript" src="https://api.clientify.net/web-marketing/superforms/script/283152.js"></script>
+      <p class="text-xs text-ink-500 mt-2">No spam. Cancela cuando quieras.</p>
     </div>
   </div>
 

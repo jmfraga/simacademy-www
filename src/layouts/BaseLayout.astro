@@ -42,6 +42,9 @@ const jsonLdBlocks = [organizationLd(siteUrl), ...structuredData];
     <link rel="apple-touch-icon" href={`${import.meta.env.BASE_URL.replace(/\/$/, '')}/logo.png`} />
     <link rel="canonical" href={canonical} />
 
+    <link rel="preconnect" href="https://apps.clientify.net" />
+    <link rel="preconnect" href="https://api.clientify.net" />
+
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="SimAcademy" />
     <meta property="og:title" content={title} />
@@ -76,6 +79,9 @@ const jsonLdBlocks = [organizationLd(siteUrl), ...structuredData];
       <slot />
     </main>
     <Footer />
+
+    <!-- Clientify WhatsApp widget compartido SimAcademy -->
+    <script is:inline defer src="https://apps.clientify.net/widget-whatsapp2.0/app/assets/index-5yccDyx4.js?id=d2a8fb3d-8cd3-4135-b0b8-92db6c2dca79&path=https://plus.clientify.com"></script>
 
     <script>
       // Reveal-on-scroll: any element with .reveal gets .in when intersecting.
