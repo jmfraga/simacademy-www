@@ -5,12 +5,14 @@ import Hero from '../../components/Hero.astro';
 import SectionTitle from '../../components/SectionTitle.astro';
 import CtaBlock from '../../components/CtaBlock.astro';
 
+const B = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const recursos = [
   {
     title: 'Juegos serios',
     description:
       'Recursos sobre diseño de juegos para la educación clínica, una herramienta complementaria a la simulación.',
-    href: '/recursos/juegos-serios',
+    href: `${B}/recursos/juegos-serios`,
     accent: 'purple',
     icon: 'puzzle',
   },
@@ -18,7 +20,7 @@ const recursos = [
     title: 'Código de conducta',
     description:
       'Principios y comportamientos esperados de profesores y colaboradores de SimAcademy.',
-    href: '/recursos/codigo-de-conducta',
+    href: `${B}/recursos/codigo-de-conducta`,
     accent: 'green',
     icon: 'shield',
   },
@@ -26,7 +28,7 @@ const recursos = [
     title: 'Código de ética',
     description:
       'Estándares éticos que guían el actuar de quienes colaboran con SimAcademy.',
-    href: '/recursos/codigo-de-etica',
+    href: `${B}/recursos/codigo-de-etica`,
     accent: 'gold',
     icon: 'scale',
   },

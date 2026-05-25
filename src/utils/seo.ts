@@ -19,7 +19,12 @@ export interface SeoInput {
  * filename in /og/. Falls back to "default" if no slug matches.
  */
 export function ogSlugForPath(pathname: string): string {
-  const clean = pathname.replace(/\/+$/, '').replace(/^\/+/, '');
+  // Strip Astro base (e.g. "/simacademy-www") so the map keys still match
+  // when deployed to a subpath.
+  const base = (import.meta.env.BASE_URL ?? '/').replace(/\/+$/, '');
+  const withoutBase =
+    base && pathname.startsWith(base) ? pathname.slice(base.length) : pathname;
+  const clean = withoutBase.replace(/\/+$/, '').replace(/^\/+/, '');
   if (clean === '' || clean === 'index') return 'home';
   const map: Record<string, string> = {
     sobre: 'sobre',
@@ -38,9 +43,10 @@ export function ogSlugForPath(pathname: string): string {
 }
 
 export function buildOgImageUrl(pathname: string, siteUrl: URL, override?: string): string {
+  const base = (import.meta.env.BASE_URL ?? '/').replace(/\/+$/, '');
   if (override) return new URL(override, siteUrl).toString();
   const slug = ogSlugForPath(pathname);
-  return new URL(`/og/${slug}.png`, siteUrl).toString();
+  return new URL(`${base}/og/${slug}.png`, siteUrl).toString();
 }
 
 /** Organization JSON-LD — present on every page. */
@@ -50,7 +56,7 @@ export function organizationLd(siteUrl: URL) {
     '@type': 'Organization',
     name: 'SimAcademy',
     url: siteUrl.origin,
-    logo: new URL('/logo.png', siteUrl).toString(),
+    logo: new URL(`${(import.meta.env.BASE_URL ?? '/').replace(/\/+$/, '')}/logo.png`, siteUrl).toString(),
     sameAs: [
       'https://www.linkedin.com/company/simacademy-latam/',
       'https://instagram.com/simacademy.lat',
