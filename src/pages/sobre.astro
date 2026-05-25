@@ -32,13 +32,26 @@ const valores = [
   },
 ];
 
+const B = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const team = [
   {
     name: 'Juan Manuel Fraga',
-    role: 'Director y faculty senior',
-    bio:
-      'Médico, educador en simulación clínica e instructor EuSim. Lleva más de una década formando profesionales de la salud en Latinoamérica con un enfoque en medicina de emergencias y debriefing estructurado.',
-    photo: '/team/juan-manuel-fraga.jpg',
+    role: 'Director de SimAcademy',
+    bio: '',
+    photo: `${B}/team/juan-manuel-fraga.jpg`,
+  },
+  {
+    name: 'José Luis Pérez Espino',
+    role: 'Director de Asesores en Emergencias y Desastres',
+    bio: '',
+    photo: `${B}/team/jose-luis-perez-espino.jpg`,
+  },
+  {
+    name: 'Tanya Loizaga Melhado',
+    role: 'Encargada de oficina',
+    bio: '',
+    photo: `${B}/team/tanya-loizaga-melhado.jpg`,
   },
 ];
 ---
@@ -130,8 +143,8 @@ const team = [
     <Container>
       <SectionTitle
         eyebrow="Equipo"
-        title="Quiénes facilitan."
-        subtitle="Faculty con formación clínica, pedagógica y certificación internacional en simulación."
+        title="Quiénes están detrás."
+        subtitle="Dirección y oficina de SimAcademy. Próximamente publicaremos también al faculty de instructores."
         align="center"
         class="mx-auto mb-12"
       />
@@ -144,10 +157,11 @@ const team = [
             <img
               src={p.photo}
               alt={`Foto de ${p.name}`}
-              class="w-28 h-28 rounded-full object-cover ring-2 ring-brand-purple/20"
+              class="w-28 h-28 rounded-full object-cover ring-2 ring-brand-purple/20 bg-ink-300/20"
               loading="lazy"
               width="112"
               height="112"
+              onerror="this.style.visibility='hidden'"
             />
             <div>
               <h3 class="font-display text-lg font-semibold text-ink-900">
@@ -155,10 +169,11 @@ const team = [
               </h3>
               <p class="text-sm font-medium text-brand-purple">{p.role}</p>
             </div>
-            <p class="text-sm text-ink-700 leading-relaxed">{p.bio}</p>
+            {p.bio && (
+              <p class="text-sm text-ink-700 leading-relaxed">{p.bio}</p>
+            )}
           </li>
         ))}
-        <!-- TODO Phase 7: agregar Tanya, José Luis, Paola Serrano cuando JM provea fotos + bios -->
       </ul>
     </Container>
   </section>
