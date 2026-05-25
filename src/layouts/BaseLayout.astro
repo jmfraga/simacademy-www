@@ -80,8 +80,8 @@ const jsonLdBlocks = [organizationLd(siteUrl), ...structuredData];
     </main>
     <Footer />
 
-    <!-- Clientify WhatsApp widget compartido SimAcademy -->
-    <script is:inline defer src="https://apps.clientify.net/widget-whatsapp2.0/app/assets/index-5yccDyx4.js?id=d2a8fb3d-8cd3-4135-b0b8-92db6c2dca79&path=https://plus.clientify.com"></script>
+    <!-- Clientify WhatsApp widget compartido SimAcademy (data-astro-rerun para que sobreviva View Transitions) -->
+    <script is:inline defer data-astro-rerun src="https://apps.clientify.net/widget-whatsapp2.0/app/assets/index-5yccDyx4.js?id=d2a8fb3d-8cd3-4135-b0b8-92db6c2dca79&path=https://plus.clientify.com"></script>
 
     <script>
       // Reveal-on-scroll: any element with .reveal gets .in when intersecting.
