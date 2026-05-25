@@ -39,27 +39,39 @@ const modalityLabel = {
 const testimonials = [
   {
     quote:
-      'Finalizo este curso con mis expectativas ampliamente superadas. La práctica guiada por expertos fue invaluable.',
+      'Finalizo este curso con mis expectativas ampliamente superadas. La práctica de las herramientas guiadas por expertos fue invaluable.',
     author: 'Participante EuSim Nivel 1',
-    role: 'Cohorte CDMX',
+    role: 'Fundación Barceló · Buenos Aires, 2024',
   },
   {
     quote:
-      'Un curso muy dinámico, con un balance perfecto entre teoría y práctica. El equipo es excelente.',
+      'Es un parte aguas en mi vida profesional. Aprendes haciendo, nada aburrido, muy humano: se aprende metodología, no solo técnicas.',
     author: 'Participante EuSim Nivel 1',
-    role: 'Cohorte CDMX',
+    role: 'Centro de Desarrollo ABC · México, 2025',
   },
   {
     quote:
-      'El profesionalismo y la seguridad psicológica que se sintieron durante el curso marcaron una gran diferencia.',
+      'El profesionalismo y la seguridad psicológica que te brindan marcaron una gran diferencia. Agradecidos por su hospitalidad y dedicación.',
     author: 'Participante EuSim Nivel 1',
-    role: 'Cohorte CDMX',
+    role: 'Universidad Barceló · Argentina, 2024',
   },
   {
     quote:
-      'Me encantó la estructura del curso, el ambiente cálido de los instructores y la retroalimentación constante.',
+      'Gracias por esta experiencia inolvidable. La tutoría personalizada y el acompañamiento continuo de los docentes hicieron toda la diferencia.',
+    author: 'Participante EuSim Nivel 2',
+    role: 'SimAcademy · Modalidad virtual, 2025',
+  },
+  {
+    quote:
+      'Me encantó la estructura del curso, el ambiente cálido de los instructores y la retroalimentación constante. Excelentes maestros.',
     author: 'Participante EuSim Nivel 1',
-    role: 'Cohorte CDMX',
+    role: 'CITES · Monterrey, 2023',
+  },
+  {
+    quote:
+      'La diversidad de opiniones y experiencias, y participar en diferentes roles, me permitió tener distintas perspectivas del mismo aspecto. Excelente curso.',
+    author: 'Participante EuSim Nivel 1',
+    role: 'Fundación Barceló · Buenos Aires, 2024',
   },
 ];
 ---
@@ -108,9 +120,9 @@ const testimonials = [
     <Container>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-10">
         <StatCounter client:visible value={25} label="Años de trayectoria" />
-        <StatCounter client:visible value={1200} suffix="+" label="Profesionales formados" />
-        <StatCounter client:visible value={80} suffix="+" label="Cursos impartidos" />
-        <StatCounter client:visible value={15} suffix="+" label="Centros aliados" />
+        <StatCounter client:visible value={100000} suffix="+" label="Certificaciones AHA" />
+        <StatCounter client:visible value={300} suffix="+" label="Educadores EuSim formados" />
+        <StatCounter client:visible value={8} suffix="+" label="Países alcanzados" />
       </div>
     </Container>
   </section>

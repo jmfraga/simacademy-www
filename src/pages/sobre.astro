@@ -34,6 +34,64 @@ const valores = [
 
 const B = import.meta.env.BASE_URL.replace(/\/$/, '');
 
+const hitos = [
+  {
+    year: '2001',
+    title: 'Fundación',
+    body:
+      'Nace Asesores en Emergencias y Desastres, casa matriz de SimAcademy, dedicada a la formación de profesionales de la salud.',
+  },
+  {
+    year: '2006',
+    title: 'Centro de entrenamiento AHA',
+    body:
+      'Nos certificamos como Centro Internacional de Entrenamiento de la American Heart Association.',
+  },
+  {
+    year: '2012',
+    title: 'Nace SimMx',
+    body:
+      'Lanzamos SimMx como brazo educativo enfocado exclusivamente en simulación clínica.',
+  },
+  {
+    year: '2015',
+    title: 'SimAcademy — marca registrada',
+    body:
+      'SimMx evoluciona a SimAcademy, marca registrada en México y Europa.',
+  },
+  {
+    year: '2017',
+    title: 'Ciudad Cardio Protegida',
+    body:
+      'Asesores en Emergencias participa en el programa de Ciudad Cardio Protegida en Querétaro, México.',
+  },
+  {
+    year: '2021',
+    title: 'Socios de EuSim',
+    body:
+      'Nos integramos como partners oficiales de la red EuSim, comunidad internacional de centros de simulación.',
+  },
+];
+
+const impacto = [
+  {
+    value: '100,000+',
+    label: 'Personas certificadas con la American Heart Association',
+  },
+  {
+    value: '300+',
+    label: 'Educadores en simulación formados con EuSim',
+  },
+  {
+    value: '600+',
+    label: 'Participantes en Introducción a la Simulación Clínica',
+  },
+  {
+    value: '8+',
+    label: 'Países en LATAM y Europa donde hemos colaborado',
+  },
+];
+
 const team = [
   {
     name: 'Juan Manuel Fraga',
@@ -98,7 +156,57 @@ const team = [
     </Container>
   </section>
 
+  <section class="reveal py-20 sm:py-28 bg-surface">
+    <Container variant="narrow">
+      <SectionTitle
+        eyebrow="Línea de tiempo"
+        title="25 años, seis hitos."
+        align="center"
+        class="mx-auto mb-12"
+      />
+      <ol class="relative border-l-2 border-brand-purple/20 ml-3 space-y-10" role="list">
+        {hitos.map((h) => (
+          <li class="relative pl-8">
+            <span
+              class="absolute -left-[11px] top-1.5 inline-flex items-center justify-center w-5 h-5 rounded-full bg-brand-purple ring-4 ring-surface"
+              aria-hidden="true"
+            ></span>
+            <p class="font-display text-2xl font-semibold text-brand-purple leading-none">
+              {h.year}
+            </p>
+            <h3 class="font-display text-lg font-semibold text-ink-900 mt-1 mb-1">
+              {h.title}
+            </h3>
+            <p class="text-sm text-ink-700 leading-relaxed">{h.body}</p>
+          </li>
+        ))}
+      </ol>
+    </Container>
+  </section>
+
   <section class="reveal bg-[var(--gradient-soft)] py-20 sm:py-28">
+    <Container>
+      <SectionTitle
+        eyebrow="Impacto"
+        title="Lo que nos respalda."
+        subtitle="Cifras acumuladas de Asesores en Emergencias y SimAcademy a lo largo de 25 años."
+        align="center"
+        class="mx-auto mb-12"
+      />
+      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto" role="list">
+        {impacto.map((i) => (
+          <li class="bg-surface rounded-[var(--r-md)] border border-ink-300/30 shadow-[var(--shadow-sm)] p-6 flex flex-col items-start gap-2">
+            <p class="font-display text-4xl sm:text-5xl font-semibold text-brand-purple tabular-nums">
+              {i.value}
+            </p>
+            <p class="text-sm text-ink-700 leading-relaxed">{i.label}</p>
+          </li>
+        ))}
+      </ul>
+    </Container>
+  </section>
+
+  <section class="reveal bg-surface py-20 sm:py-28">
     <Container>
       <SectionTitle
         eyebrow="Filosofía"
