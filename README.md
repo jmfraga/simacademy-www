@@ -9,7 +9,7 @@ Sitio principal de SimAcademy — `https://www.simacademy.lat`.
 - **React 19** (islands para componentes interactivos)
 - **@astrojs/sitemap** (auto-gen)
 - **@fontsource** Playfair Display + Inter (self-hosted)
-- Hosting: **GitHub Pages** con dominio custom `www.simacademy.lat`
+- Hosting: **TC SimAcademy** (Cloudflare Tunnel → nginx → `/var/www/simacademy-www/`)
 
 ## Comandos
 
@@ -19,6 +19,7 @@ Sitio principal de SimAcademy — `https://www.simacademy.lat`.
 | `npm run dev`      | Servidor local en `http://localhost:4321`    |
 | `npm run build`    | Build estático a `./dist/`                   |
 | `npm run preview`  | Preview del build                            |
+| `./scripts/deploy.sh` | Build + rsync a producción (TC SimAcademy) |
 
 ## Estructura
 
@@ -31,7 +32,7 @@ src/
 ├── styles/       # tokens.css + global.css
 └── assets/       # imágenes optimizadas por Astro
 public/           # estáticos servidos tal cual (CNAME, logo, robots)
-.github/workflows # deploy a GitHub Pages
+scripts/          # deploy.sh y utilidades
 ```
 
 ## Tokens visuales
@@ -44,11 +45,19 @@ Paleta base en `src/styles/tokens.css`:
 
 ## Deploy
 
-Push a `main` dispara el workflow `.github/workflows/deploy.yml` que construye y publica a GitHub Pages.
+```sh
+./scripts/deploy.sh
+```
 
-**Setup manual pendiente:** Settings → Pages → Source: **GitHub Actions**.
+Construye con `npm run build` y rsyncea `dist/` a
+`simacademy@100.88.172.10:/var/www/simacademy-www/`.
+
+El TC SimAcademy expone el contenido vía nginx (vhost
+`/etc/nginx/sites-enabled/simacademy-www`) que recibe tráfico desde el
+Cloudflare Tunnel `simacademy` para los hostnames `www.simacademy.lat` y
+`simacademy.lat`. Cloudflare maneja el cert HTTPS y CDN.
 
 ## Producción
 
 - URL final: <https://www.simacademy.lat>
-- Subdominios hermanos: `info.`, `blog.`, `moodle.`, `kanban.`
+- Subdominios hermanos: `info.`, `blog.`, `moodle.`, `kanban.`, `marketing.`
