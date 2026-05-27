@@ -9,11 +9,22 @@ const B = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const recursos = [
   {
+    title: 'Feedback de debriefing',
+    description:
+      'Herramienta gratuita: sube el transcript de tu debriefing, elige el marco (PEARLS, GAS, Steinwachs, Diamond, TALK) y recibe retroalimentación estructurada con base en evidencia. Pensada para uso educativo, no reemplaza mentoría formal.',
+    href: 'https://claude.ai/public/artifacts/1a1e71cb-f1f9-4379-a6b9-ca5d04370f81',
+    external: true,
+    accent: 'purple',
+    icon: 'feedback',
+    cta: 'Abrir herramienta',
+    badge: 'Nuevo',
+  },
+  {
     title: 'Juegos serios',
     description:
       'Recursos sobre diseño de juegos para la educación clínica, una herramienta complementaria a la simulación.',
     href: `${B}/recursos/juegos-serios`,
-    accent: 'purple',
+    accent: 'green',
     icon: 'puzzle',
   },
   {
@@ -21,7 +32,7 @@ const recursos = [
     description:
       'Principios y comportamientos esperados de profesores y colaboradores de SimAcademy.',
     href: `${B}/recursos/codigo-de-conducta`,
-    accent: 'green',
+    accent: 'gold',
     icon: 'shield',
   },
   {
@@ -29,7 +40,7 @@ const recursos = [
     description:
       'Estándares éticos que guían el actuar de quienes colaboran con SimAcademy.',
     href: `${B}/recursos/codigo-de-etica`,
-    accent: 'gold',
+    accent: 'purple',
     icon: 'scale',
   },
 ];
@@ -43,7 +54,7 @@ const accentMap = {
 
 <BaseLayout
   title="Recursos — SimAcademy"
-  description="Materiales y documentos abiertos de SimAcademy: juegos serios, código de conducta y código de ética."
+  description="Materiales y herramientas abiertas de SimAcademy: feedback de debriefing con IA, juegos serios, código de conducta y código de ética."
 >
   <Hero
     eyebrow="Recursos"
@@ -63,12 +74,22 @@ const accentMap = {
             <li>
               <a
                 href={r.href}
-                class={`lift group block h-full rounded-[var(--r-md)] bg-surface border border-ink-300/30 shadow-[var(--shadow-sm)] p-6 flex flex-col gap-4 hover:border-brand-purple/40 transition-colors`}
+                target={r.external ? '_blank' : undefined}
+                rel={r.external ? 'noopener' : undefined}
+                class={`lift group relative block h-full rounded-[var(--r-md)] bg-surface border border-ink-300/30 shadow-[var(--shadow-sm)] p-6 flex flex-col gap-4 hover:border-brand-purple/40 transition-colors`}
               >
+                {r.badge && (
+                  <span class="absolute top-4 right-4 inline-flex items-center px-2 py-0.5 rounded-full bg-brand-green/15 text-brand-green-dark text-xs font-semibold uppercase tracking-wider">
+                    {r.badge}
+                  </span>
+                )}
                 <span
                   class={`inline-flex items-center justify-center w-12 h-12 rounded-full ${a.bg} ${a.text}`}
                   aria-hidden="true"
                 >
+                  {r.icon === 'feedback' && (
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="13" y2="14"/></svg>
+                  )}
                   {r.icon === 'puzzle' && (
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.611a2.404 2.404 0 0 1-1.705.707 2.402 2.402 0 0 1-1.704-.707l-1.568-1.568a1.026 1.026 0 0 0-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 1 1-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026 0 0 0-.289-.877l-1.568-1.568A2.402 2.402 0 0 1 1.998 12c0-.617.236-1.234.706-1.704L4.23 8.77c.24-.24.581-.353.917-.303.515.077.877.528 1.073 1.01a2.5 2.5 0 1 0 3.259-3.259c-.482-.196-.933-.558-1.01-1.073-.05-.336.062-.676.303-.917l1.525-1.525A2.402 2.402 0 0 1 12 1.998c.617 0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 1 1 3.237 3.237c-.464.18-.894.527-.967 1.02Z"/></svg>
                   )}
@@ -88,7 +109,7 @@ const accentMap = {
                   </p>
                 </div>
                 <span class={`text-sm font-semibold ${a.text} inline-flex items-center gap-1 mt-auto`}>
-                  Ver recurso
+                  {r.cta ?? 'Ver recurso'}
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-0.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </span>
               </a>
