@@ -62,15 +62,20 @@ const isActive = (href: string) => {
 
     <button
       id="nav-toggle"
-      class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-ink-700 hover:bg-ink-300/20"
+      type="button"
+      class="md:hidden relative z-[60] inline-flex items-center justify-center p-2 rounded-md text-ink-700 hover:bg-ink-300/20"
       aria-label="Abrir menú"
       aria-expanded="false"
       aria-controls="mobile-nav"
     >
-      <svg id="nav-icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg data-nav-icon="open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="3" y1="6" x2="21" y2="6"></line>
         <line x1="3" y1="12" x2="21" y2="12"></line>
         <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+      <svg data-nav-icon="close" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
       </svg>
     </button>
   </div>
@@ -78,7 +83,7 @@ const isActive = (href: string) => {
   <!-- Mobile full-screen overlay -->
   <div
     id="mobile-nav"
-    class="md:hidden fixed inset-0 top-16 z-40 bg-paper/98 backdrop-blur-md hidden flex-col"
+    class="md:hidden fixed inset-x-0 top-16 bottom-0 z-[55] bg-paper backdrop-blur-md hidden flex-col"
     aria-hidden="true"
   >
     <nav class="flex-1 overflow-y-auto px-6 py-8 flex flex-col gap-1" aria-label="Móvil">
@@ -110,14 +115,32 @@ const isActive = (href: string) => {
 </header>
 
 <script>
-  // Sticky scroll style + mobile overlay toggle. Use Astro lifecycle so it
-  // works through View Transitions.
+  // Sticky scroll style + mobile overlay toggle. Compatible con View Transitions:
+  // re-corre en cada `astro:page-load` y limpia estado heredado.
   function initHeader() {
     const header = document.getElementById('site-header');
     const toggle = document.getElementById('nav-toggle');
     const panel = document.getElementById('mobile-nav');
+    if (!header || !toggle || !panel) return;
 
-    if (header && !(header as any).__scrollBound) {
+    const iconOpen = toggle.querySelector<HTMLElement>('[data-nav-icon="open"]');
+    const iconClose = toggle.querySelector<HTMLElement>('[data-nav-icon="close"]');
+
+    const setOpen = (open: boolean) => {
+      panel.classList.toggle('hidden', !open);
+      panel.classList.toggle('flex', open);
+      panel.setAttribute('aria-hidden', String(!open));
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      iconOpen?.classList.toggle('hidden', open);
+      iconClose?.classList.toggle('hidden', !open);
+      document.documentElement.style.overflow = open ? 'hidden' : '';
+    };
+
+    // Asegurar estado limpio al entrar a la página (después de View Transition).
+    setOpen(false);
+
+    if (!(header as any).__scrollBound) {
       const onScroll = () => {
         header.dataset.scrolled = window.scrollY > 8 ? 'true' : 'false';
       };
@@ -126,22 +149,19 @@ const isActive = (href: string) => {
       (header as any).__scrollBound = true;
     }
 
-    if (toggle && panel && !(toggle as any).__bound) {
-      const setOpen = (open: boolean) => {
-        panel.classList.toggle('hidden', !open);
-        panel.classList.toggle('flex', open);
-        panel.setAttribute('aria-hidden', String(!open));
-        toggle.setAttribute('aria-expanded', String(open));
-        toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
-        document.documentElement.style.overflow = open ? 'hidden' : '';
-      };
-      toggle.addEventListener('click', () => {
-        const isOpen = panel.classList.contains('hidden');
-        setOpen(isOpen);
+    if (!(toggle as any).__bound) {
+      toggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const willOpen = panel.classList.contains('hidden');
+        setOpen(willOpen);
       });
       panel.addEventListener('click', (e) => {
         const t = e.target as HTMLElement;
-        if (t.tagName === 'A') setOpen(false);
+        if (t.closest('a')) setOpen(false);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !panel.classList.contains('hidden')) setOpen(false);
       });
       (toggle as any).__bound = true;
     }
@@ -149,4 +169,8 @@ const isActive = (href: string) => {
 
   initHeader();
   document.addEventListener('astro:page-load', initHeader);
+  // Si la página fue ocultada y vuelve, asegurar que el overflow del html no quede stuck
+  document.addEventListener('astro:before-swap', () => {
+    document.documentElement.style.overflow = '';
+  });
 </script>
