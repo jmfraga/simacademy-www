@@ -80,13 +80,35 @@ const isActive = (href: string) => {
     </button>
   </div>
 
-  <!-- Mobile full-screen overlay -->
-  <div
+  <!-- Mobile full-screen menu: <dialog> nativo se renderiza en el top layer
+       del browser, garantizando que aparezca encima de cualquier stacking
+       context y de cualquier widget de terceros (Clientify, etc.). -->
+  <dialog
     id="mobile-nav"
-    class="md:hidden fixed inset-x-0 top-16 bottom-0 z-[55] bg-paper backdrop-blur-md hidden flex-col"
-    aria-hidden="true"
+    class="md:hidden m-0 w-full max-w-none h-full max-h-none p-0 bg-paper text-ink-900 backdrop:bg-ink-900/40"
+    aria-label="Menú principal"
   >
-    <nav class="flex-1 overflow-y-auto px-6 py-8 flex flex-col gap-1" aria-label="Móvil">
+    <div class="flex flex-col h-full">
+      <!-- Mini header dentro del dialog: logo + botón cerrar -->
+      <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-ink-300/30 bg-paper">
+        <a href={`${B}/`} class="flex items-center gap-2" aria-label="SimAcademy inicio">
+          <img src={`${B}/logo.png`} alt="" class="h-9 w-auto" width="36" height="36" />
+          <span class="font-display text-lg font-semibold text-ink-900">SimAcademy</span>
+        </a>
+        <button
+          id="nav-close"
+          type="button"
+          class="inline-flex items-center justify-center p-2 rounded-md text-ink-700 hover:bg-ink-300/20"
+          aria-label="Cerrar menú"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+    <nav class="flex-1 overflow-y-auto px-6 py-6 flex flex-col gap-1" aria-label="Móvil">
       {navLinks.map((l) => {
         const active = isActive(l.href);
         return (
@@ -94,7 +116,7 @@ const isActive = (href: string) => {
             href={l.href}
             aria-current={active ? 'page' : undefined}
             class:list={[
-              'px-4 py-4 rounded-xl text-lg font-display font-medium transition-colors border-b border-ink-300/30',
+              'px-4 py-3.5 rounded-xl text-base font-display font-medium transition-colors border-b border-ink-300/30',
               active ? 'text-brand-purple' : 'text-ink-900 hover:text-brand-purple',
             ]}
           >
@@ -111,35 +133,46 @@ const isActive = (href: string) => {
         WhatsApp
       </a>
     </nav>
-  </div>
+    </div>
+  </dialog>
 </header>
 
 <script>
-  // Sticky scroll style + mobile overlay toggle. Compatible con View Transitions:
-  // re-corre en cada `astro:page-load` y limpia estado heredado.
+  // Sticky scroll style + mobile menu via <dialog>. El elemento <dialog> con
+  // showModal() se renderiza en el top layer del browser — garantiza estar
+  // arriba de cualquier widget de terceros y resuelve issues de stacking
+  // context heredados de ancestros con transform/filter.
   function initHeader() {
     const header = document.getElementById('site-header');
     const toggle = document.getElementById('nav-toggle');
-    const panel = document.getElementById('mobile-nav');
+    const panel = document.getElementById('mobile-nav') as HTMLDialogElement | null;
+    const closeBtn = document.getElementById('nav-close');
     if (!header || !toggle || !panel) return;
 
     const iconOpen = toggle.querySelector<HTMLElement>('[data-nav-icon="open"]');
     const iconClose = toggle.querySelector<HTMLElement>('[data-nav-icon="close"]');
 
-    const setOpen = (open: boolean) => {
-      panel.classList.toggle('hidden', !open);
-      panel.classList.toggle('flex', open);
-      panel.setAttribute('aria-hidden', String(!open));
-      toggle.setAttribute('aria-expanded', String(open));
-      toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
-      iconOpen?.classList.toggle('hidden', open);
-      iconClose?.classList.toggle('hidden', !open);
-      document.documentElement.style.overflow = open ? 'hidden' : '';
+    const openMenu = () => {
+      if (typeof panel.showModal === 'function' && !panel.open) {
+        panel.showModal();
+      }
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Cerrar menú');
+      iconOpen?.classList.add('hidden');
+      iconClose?.classList.remove('hidden');
     };
 
-    // Asegurar estado limpio al entrar a la página (después de View Transition).
-    setOpen(false);
+    const closeMenu = () => {
+      if (typeof panel.close === 'function' && panel.open) {
+        panel.close();
+      }
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Abrir menú');
+      iconOpen?.classList.remove('hidden');
+      iconClose?.classList.add('hidden');
+    };
 
+    // Sticky scroll style del header
     if (!(header as any).__scrollBound) {
       const onScroll = () => {
         header.dataset.scrolled = window.scrollY > 8 ? 'true' : 'false';
@@ -153,24 +186,37 @@ const isActive = (href: string) => {
       toggle.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        const willOpen = panel.classList.contains('hidden');
-        setOpen(willOpen);
+        if (panel.open) closeMenu();
+        else openMenu();
       });
+      closeBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        closeMenu();
+      });
+      // Click en un enlace de navegación: cerrar antes de navegar
       panel.addEventListener('click', (e) => {
         const t = e.target as HTMLElement;
-        if (t.closest('a')) setOpen(false);
+        const a = t.closest('a');
+        if (a && a.id !== 'nav-close') closeMenu();
       });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !panel.classList.contains('hidden')) setOpen(false);
+      // Click sobre el ::backdrop (fuera del contenido) cierra
+      panel.addEventListener('click', (e) => {
+        if (e.target === panel) closeMenu();
+      });
+      // El <dialog> dispara 'close' al hacer Escape — sincronizamos icono
+      panel.addEventListener('close', () => {
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Abrir menú');
+        iconOpen?.classList.remove('hidden');
+        iconClose?.classList.add('hidden');
       });
       (toggle as any).__bound = true;
     }
+
+    // Asegurar estado cerrado al entrar a la página
+    closeMenu();
   }
 
   initHeader();
   document.addEventListener('astro:page-load', initHeader);
-  // Si la página fue ocultada y vuelve, asegurar que el overflow del html no quede stuck
-  document.addEventListener('astro:before-swap', () => {
-    document.documentElement.style.overflow = '';
-  });
 </script>
