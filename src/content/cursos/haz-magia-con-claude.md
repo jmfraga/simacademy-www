@@ -7,7 +7,7 @@ dates: "16 jun - 21 jul 2026"
 duration: "6 semanas · 36 horas"
 price: "$3,500 MXN + IVA"
 audience: "Médicos, enfermería, docentes clínicos y educadores en salud."
-href: "https://info.simacademy.lat/has-magia-con-claude/"
+href: "https://info.simacademy.lat/haz-magia-con-claude/"
 accent: purple
 featured: true
 order: 6
