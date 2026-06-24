@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "npm run og && astro build",
+    "build": "npm run og && astro build && node scripts/gen-llms-txt.mjs",
     "preview": "astro preview",
     "og": "node scripts/generate-og.mjs",
     "astro": "astro"

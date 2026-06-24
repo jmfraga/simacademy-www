@@ -1,0 +1,29 @@
+# SimAcademy
+
+> SimAcademy es la academia mexicana de educación médica basada en simulación clínica. Sitio principal con información institucional, oferta educativa (calendario y cursos vivos), recursos abiertos para la comunidad y políticas operativas.
+
+Dirigido a médicos, residentes, enfermería, paramédicos, educadores clínicos, directores de centros de simulación y socios institucionales. Las inscripciones a cursos se hacen en `info.simacademy.lat` (landings por curso). Los posts educativos viven en `blog.simacademy.lat`.
+
+## Páginas principales
+
+- [Inicio](https://www.simacademy.lat/): Página principal — propósito de SimAcademy, oferta destacada, hitos institucionales.
+- [Sobre SimAcademy](https://www.simacademy.lat/sobre/): Equipo (Dr. Juan Manuel Fraga, José Luis Fraga, Tanya), historia, valores, fotografías.
+- [Oferta educativa](https://www.simacademy.lat/oferta-educativa/): Cursos vivos con resumen, modalidad, fechas y link a inscripción en info.simacademy.lat.
+- [Calendario académico](https://www.simacademy.lat/oferta-educativa/calendario/): Vista de cohortes próximas por fecha.
+- [Comunidad](https://www.simacademy.lat/comunidad/): Red de instructores SimAcademy, eventos, grupos WhatsApp.
+- [Contacto](https://www.simacademy.lat/contacto/): WhatsApp, correo, dirección y horario.
+- [Política de cancelación](https://www.simacademy.lat/cancelaciones/): Reglas vigentes para cancelar/transferir inscripción.
+- [Pagos](https://www.simacademy.lat/pagos/): Datos bancarios, métodos de pago y facturación.
+
+## Recursos abiertos
+
+- [Recursos · índice](https://www.simacademy.lat/recursos/): Hub de materiales abiertos (códigos, juegos serios, herramientas IA).
+- [Feedback de debriefing (herramienta IA)](https://claude.ai/public/artifacts/8316f079-c508-4cef-bb6a-b1924a8c6283): Herramienta gratuita — sube el transcript del debriefing, elige marco (PEARLS, GAS, Steinwachs, Diamond, TALK) y recibe retroalimentación estructurada. Uso educativo, no reemplaza mentoría formal.
+- [Juegos serios en educación clínica](https://www.simacademy.lat/recursos/juegos-serios/): Diseño de juegos como complemento a la simulación.
+- [Código de conducta](https://www.simacademy.lat/recursos/codigo-de-conducta/): Principios y comportamientos esperados de profesores y colaboradores.
+- [Código de ética](https://www.simacademy.lat/recursos/codigo-de-etica/): Estándares éticos del equipo SimAcademy.
+
+## Otros sitios del ecosistema
+
+- [Cursos · landings con fechas y precios](https://info.simacademy.lat/): EuSim 1/2, Actores, Debriefing, Haz Magia con Claude, Mindfulness. Mismo precio dentro y fuera de México, IVA incluido.
+- [Blog SimAcademy](https://blog.simacademy.lat/): Posts sobre simulación clínica, debriefing, paciente simulado, fidelidad.
