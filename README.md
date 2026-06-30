@@ -50,7 +50,7 @@ Paleta base en `src/styles/tokens.css`:
 ```
 
 Construye con `npm run build` y rsyncea `dist/` a
-`simacademy@100.88.172.10:/var/www/simacademy-www/`.
+`simacademy@<tailscale-ip>:/var/www/simacademy-www/`.
 
 El TC SimAcademy expone el contenido vía nginx (vhost
 `/etc/nginx/sites-enabled/simacademy-www`) que recibe tráfico desde el
