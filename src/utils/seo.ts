@@ -145,3 +145,25 @@ export function courseLd(c: CourseInput, siteUrl: URL) {
 
   return base;
 }
+
+export type FaqItem = { question: string; answer: string };
+
+/**
+ * FAQPage schema. Las preguntas-respuesta son el formato que los motores
+ * generativos (ChatGPT, Perplexity, Google AI Overviews) citan con más
+ * facilidad, porque cada respuesta se sostiene sola fuera de su contexto.
+ *
+ * El texto debe existir también como HTML visible en la página: los
+ * crawlers de IA leen el HTML crudo, no el resultado de ejecutar JS.
+ */
+export function faqLd(items: FaqItem[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((i) => ({
+      '@type': 'Question',
+      name: i.question,
+      acceptedAnswer: { '@type': 'Answer', text: i.answer },
+    })),
+  };
+}

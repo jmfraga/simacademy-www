@@ -67,7 +67,57 @@ const waHref = 'https://wa.me/524422184424';
         Recibe novedades sobre cursos, talleres y eventos.
       </p>
       <div data-clientify-newsletter></div>
-      <script is:inline data-astro-rerun type="text/javascript" src="https://api.clientify.net/web-marketing/superforms/script/283152.js"></script>
+      <script is:inline data-astro-rerun>
+        // Popup de newsletter (Clientify) — CARGA DIFERIDA.
+        //
+        // El script oficial (superforms/script/283152.js) usa document.write(),
+        // que bloquea el parser del HTML. Auditoría 2026-08-21: First
+        // Contentful Paint de 9.6 s y PageSpeed 47 en móvil (81 en escritorio),
+        // con "contenido renderizado" al 432% — esto último penaliza la lectura
+        // por crawlers de IA, que leen el HTML crudo. Además el popup se
+        // montaba encima del hero antes de que alcanzara a leerse.
+        //
+        // Abajo se replica exactamente lo que hacía ese script (crear el
+        // elemento, fijar las dos variables globales y cargar el launcher),
+        // pero sin document.write y sólo tras la primera señal de interés
+        // del visitante — o a los 8 s. Misma captura de leads, sin costo
+        // en la carga inicial.
+        (function () {
+          if (window.__clientifyPopupQueued) return;
+          window.__clientifyPopupQueued = true;
+
+          function loadPopup() {
+            if (window.__clientifyPopupLoaded) return;
+            window.__clientifyPopupLoaded = true;
+            var d = document;
+            if (!d.querySelector('app-twostepcentered')) {
+              d.body.appendChild(d.createElement('app-twostepcentered'));
+            }
+            window.Clientify_fb_twosteppopuid = '22353';
+            window.Clientify_fb_twosteppopfid = '283152';
+            var s = d.createElement('script');
+            s.type = 'text/javascript';
+            s.async = true;
+            s.src =
+              'https://api.clientify.net/static/js/superformbuilderembedv2/launcher/launcher_twosteppopup.js';
+            (d.head || d.documentElement).appendChild(s);
+          }
+
+          var events = ['scroll', 'pointerdown', 'keydown', 'touchstart'];
+          var timer;
+          function trigger() {
+            events.forEach(function (e) {
+              window.removeEventListener(e, trigger);
+            });
+            clearTimeout(timer);
+            loadPopup();
+          }
+          timer = setTimeout(trigger, 8000);
+          events.forEach(function (e) {
+            window.addEventListener(e, trigger, { passive: true });
+          });
+        })();
+      </script>
       <p class="text-xs text-ink-500 mt-2">No spam. Cancela cuando quieras.</p>
     </div>
   </div>

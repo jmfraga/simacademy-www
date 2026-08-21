@@ -8,7 +8,7 @@ import CourseCard from '../components/CourseCard.astro';
 import CtaBlock from '../components/CtaBlock.astro';
 import StatCounter from '../components/islands/StatCounter.tsx';
 import TestimonialCarousel from '../components/islands/TestimonialCarousel.tsx';
-import { courseLd } from '../utils/seo';
+import { courseLd, faqLd, type FaqItem } from '../utils/seo';
 
 const cursos = await getCollection('cursos');
 const featured = cursos
@@ -29,6 +29,48 @@ const featuredLd = featured.map((c) =>
     siteUrl,
   ),
 );
+
+// Preguntas frecuentes. Formato Q&A porque es lo que citan los motores
+// generativos y lo que la gente escribe literalmente al buscar. Cada
+// respuesta se sostiene sola fuera de su contexto (requisito para ser
+// citada). Sin cifras ni fechas que no estén ya publicadas en el sitio.
+const faqs: FaqItem[] = [
+  {
+    question: '¿Qué es la simulación clínica y para qué sirve?',
+    answer:
+      'La simulación clínica es una metodología educativa que recrea situaciones asistenciales reales en un entorno controlado, para que los profesionales de la salud practiquen la toma de decisiones, el trabajo en equipo y los procedimientos críticos sin riesgo para el paciente. Su valor no está en el equipo tecnológico, sino en el análisis posterior de la experiencia: el debriefing.',
+  },
+  {
+    question: '¿Quién puede tomar los cursos de SimAcademy?',
+    answer:
+      'Los programas de SimAcademy están dirigidos a profesionales de la salud —medicina, enfermería, paramedicina y áreas afines—, a docentes y educadores clínicos, y a instituciones que operan o quieren abrir un centro de simulación. Hay programas para quien empieza como facilitador y otros para instructores con experiencia que buscan profundizar.',
+  },
+  {
+    question: '¿Qué es la certificación EuSim y qué la distingue?',
+    answer:
+      'EuSim es un estándar europeo de formación de instructores en simulación clínica, estructurado por niveles. SimAcademy imparte estos programas en español desde Latinoamérica con faculty internacional, de modo que la certificación mantiene el estándar global sin la barrera del idioma. El Nivel 1 forma facilitadores; los niveles siguientes son para instructores con práctica acumulada.',
+  },
+  {
+    question: '¿Qué es el debriefing y por qué es el centro de la formación?',
+    answer:
+      'El debriefing es la conversación estructurada que ocurre después de un escenario simulado, donde el facilitador guía al equipo a examinar sus decisiones y los razonamientos detrás de ellas. Es donde ocurre el aprendizaje real: sin un debriefing bien conducido, la simulación se queda en una práctica técnica. Por eso la formación de SimAcademy se organiza alrededor de esta habilidad.',
+  },
+  {
+    question: '¿Los cursos son presenciales o en línea?',
+    answer:
+      'Hay las tres modalidades: presencial, en línea y híbrida, según el programa. Los cursos en línea son sincrónicos —con sesiones en vivo, no videos grabados— porque la práctica de facilitación y debriefing requiere interacción real entre participantes.',
+  },
+  {
+    question: '¿Desde qué países puedo participar?',
+    answer:
+      'SimAcademy trabaja en español desde Latinoamérica y ha formado educadores en más de 8 países. Los programas en línea permiten participar desde cualquier país de la región; los presenciales se imparten en sede y se anuncian por convocatoria.',
+  },
+  {
+    question: '¿Cómo me entero de las próximas fechas y cómo me inscribo?',
+    answer:
+      'Cada curso publica su convocatoria con fechas, modalidad, cupo e inversión en su propia página dentro de la oferta educativa. Para preguntas concretas sobre un programa o para inscripciones institucionales, el canal directo es WhatsApp.',
+  },
+];
 
 const modalityLabel = {
   online: 'En línea',
@@ -78,8 +120,8 @@ const testimonials = [
 
 <BaseLayout
   title="SimAcademy — Educación en simulación clínica para LATAM"
-  description="SimAcademy: formación basada en simulación, debriefing estructurado y educación médica continua para profesionales de la salud en Latinoamérica."
-  structuredData={featuredLd}
+  description="SimAcademy: formación en simulación clínica, debriefing estructurado y certificación EuSim para profesionales de la salud en Latinoamérica."
+  structuredData={[...featuredLd, faqLd(faqs)]}
 >
   <Hero
     eyebrow="SimAcademy"
@@ -136,7 +178,7 @@ const testimonials = [
       <div class="flex flex-wrap items-end justify-between gap-6 mb-12">
         <SectionTitle
           eyebrow="Oferta educativa"
-          title="Próximos cursos"
+          title="Próximos cursos y certificaciones EuSim"
           subtitle="Programas presenciales, en línea e híbridos para profesionales de la salud, educadores y centros de simulación."
         />
         <a
@@ -178,6 +220,40 @@ const testimonials = [
         class="mx-auto mb-12"
       />
       <TestimonialCarousel client:load items={testimonials} />
+    </Container>
+  </section>
+
+  <section class="reveal py-20 sm:py-28" id="preguntas-frecuentes">
+    <Container variant="narrow">
+      <SectionTitle
+        eyebrow="Preguntas frecuentes"
+        title="Lo que más nos preguntan sobre simulación clínica"
+        align="center"
+        class="mx-auto mb-10"
+      />
+      {/* <details> nativo a propósito: el texto de cada respuesta vive en el
+          HTML crudo, que es lo que leen los crawlers de IA — un acordeón
+          construido con JS dejaría este contenido invisible para ellos. */}
+      <div class="space-y-3">
+        {
+          faqs.map((faq) => (
+            <details class="group rounded-xl border border-ink-300/40 bg-surface px-5 py-4">
+              <summary class="flex cursor-pointer items-start justify-between gap-4 list-none">
+                <h3 class="font-display text-base sm:text-lg font-semibold text-ink-900">
+                  {faq.question}
+                </h3>
+                <span
+                  class="mt-1 shrink-0 text-brand-purple transition-transform group-open:rotate-45"
+                  aria-hidden="true"
+                >
+                  +
+                </span>
+              </summary>
+              <p class="mt-3 text-ink-700 leading-relaxed">{faq.answer}</p>
+            </details>
+          ))
+        }
+      </div>
     </Container>
   </section>
 
