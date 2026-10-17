@@ -4,7 +4,7 @@ const year = new Date().getFullYear();
 const waHref = 'https://wa.me/524422184424';
 ---
 
-<footer class="mt-24 border-t border-ink-300/40 bg-surface">
+<footer class="mt-12 sm:mt-24 border-t border-ink-300/40 bg-surface">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
     <!-- Brand + sub-sites -->
     <div>
@@ -15,7 +15,7 @@ const waHref = 'https://wa.me/524422184424';
       <p class="text-sm text-ink-500 mb-4">
         Educación en simulación clínica para LATAM.
       </p>
-      <ul class="space-y-1.5 text-sm">
+      <ul class="space-y-1.5 text-sm [&_a]:inline-block [&_a]:py-1 sm:[&_a]:py-0">
         <li><a href="https://info.simacademy.lat" class="text-ink-700 hover:text-brand-purple">info.simacademy.lat</a></li>
         <li><a href="https://blog.simacademy.lat" class="text-ink-700 hover:text-brand-purple">blog.simacademy.lat</a></li>
         <li><a href="https://moodle.simacademy.lat" class="text-ink-700 hover:text-brand-purple">moodle.simacademy.lat</a></li>
@@ -26,7 +26,7 @@ const waHref = 'https://wa.me/524422184424';
     <!-- Recursos -->
     <div>
       <h3 class="font-display text-base font-semibold text-ink-900 mb-3">Recursos</h3>
-      <ul class="space-y-1.5 text-sm">
+      <ul class="space-y-1.5 text-sm [&_a]:inline-block [&_a]:py-1 sm:[&_a]:py-0">
         <li><a href={`${B}/cancelaciones`} class="text-ink-700 hover:text-brand-purple">Política de cancelación</a></li>
         <li><a href={`${B}/pagos`} class="text-ink-700 hover:text-brand-purple">Información de pagos</a></li>
         <li><a href={`${B}/recursos/codigo-de-conducta`} class="text-ink-700 hover:text-brand-purple">Código de conducta</a></li>
@@ -38,7 +38,7 @@ const waHref = 'https://wa.me/524422184424';
     <!-- Síguenos -->
     <div>
       <h3 class="font-display text-base font-semibold text-ink-900 mb-3">Síguenos</h3>
-      <ul class="space-y-1.5 text-sm">
+      <ul class="space-y-1.5 text-sm [&_a]:inline-block [&_a]:py-1 sm:[&_a]:py-0">
         <li>
           <a href="https://www.instagram.com/simacademy.lat" target="_blank" rel="noopener" class="text-ink-700 hover:text-brand-purple">
             Instagram
@@ -101,6 +101,21 @@ const waHref = 'https://wa.me/524422184424';
             s.src =
               'https://api.clientify.net/static/js/superformbuilderembedv2/launcher/launcher_twosteppopup.js';
             (d.head || d.documentElement).appendChild(s);
+          }
+
+          // En celular el popup se montaba encima del hero al primer toque y
+          // tapaba los botones (revisión 16-oct-2026). Ahí sólo se carga cuando
+          // la persona ya recorrió media página: señal de interés real.
+          if (window.matchMedia('(max-width: 639px)').matches) {
+            function onScrollDepth() {
+              var max = document.documentElement.scrollHeight - window.innerHeight;
+              if (max > 0 && window.scrollY / max >= 0.5) {
+                window.removeEventListener('scroll', onScrollDepth);
+                loadPopup();
+              }
+            }
+            window.addEventListener('scroll', onScrollDepth, { passive: true });
+            return;
           }
 
           var events = ['scroll', 'pointerdown', 'keydown', 'touchstart'];

@@ -67,3 +67,12 @@
     border-radius: var(--r-sm);
   }
 }
+
+/* Widget flotante de WhatsApp (Clientify): es un iframe de 80px que no podemos
+   estilizar por dentro. En celular lo achicamos para que tape menos texto. */
+@media (max-width: 639px) {
+  body > iframe[style*="position: fixed"] {
+    transform: scale(0.75);
+    transform-origin: bottom right;
+  }
+}
