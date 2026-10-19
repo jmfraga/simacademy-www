@@ -3,6 +3,7 @@ const B = import.meta.env.BASE_URL.replace(/\/$/, ''); // '' o '/simacademy-www'
 const navLinks = [
   { href: `${B}/`, label: 'Inicio' },
   { href: `${B}/sobre`, label: 'Sobre' },
+  { href: `${B}/sobre#faculty`, label: 'Profesores' },
   { href: `${B}/oferta-educativa`, label: 'Oferta educativa' },
   { href: `${B}/recursos`, label: 'Recursos' },
   { href: `${B}/comunidad`, label: 'Comunidad' },
@@ -31,7 +32,7 @@ const isActive = (href: string) => {
       </span>
     </a>
 
-    <nav class="hidden md:flex items-center gap-1" aria-label="Primaria">
+    <nav class="hidden lg:flex items-center gap-1" aria-label="Primaria">
       {navLinks.map((l) => {
         const active = isActive(l.href);
         return (
@@ -39,7 +40,7 @@ const isActive = (href: string) => {
             href={l.href}
             aria-current={active ? 'page' : undefined}
             class:list={[
-              'relative px-3 py-2 text-sm font-medium transition-colors',
+              'relative px-3 py-2 text-sm font-medium whitespace-nowrap transition-colors',
               active ? 'text-brand-purple' : 'text-ink-700 hover:text-brand-purple',
             ]}
           >
@@ -54,7 +55,7 @@ const isActive = (href: string) => {
         href={waHref}
         target="_blank"
         rel="noopener"
-        class="ml-3 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-green text-white text-sm font-semibold shadow-sm hover:bg-brand-green-dark transition-colors"
+        class="ml-3 inline-flex items-center gap-2 whitespace-nowrap px-4 py-2 rounded-full bg-brand-green text-white text-sm font-semibold shadow-sm hover:bg-brand-green-dark transition-colors"
       >
         WhatsApp
       </a>
@@ -63,7 +64,7 @@ const isActive = (href: string) => {
     <button
       id="nav-toggle"
       type="button"
-      class="md:hidden relative z-[60] inline-flex items-center justify-center p-2 rounded-md text-ink-700 hover:bg-ink-300/20"
+      class="lg:hidden relative z-[60] inline-flex items-center justify-center p-2 rounded-md text-ink-700 hover:bg-ink-300/20"
       aria-label="Abrir menú"
       aria-expanded="false"
       aria-controls="mobile-nav"
@@ -85,7 +86,7 @@ const isActive = (href: string) => {
        context y de cualquier widget de terceros (Clientify, etc.). -->
   <dialog
     id="mobile-nav"
-    class="md:hidden m-0 w-full max-w-none h-full max-h-none p-0 bg-paper text-ink-900 backdrop:bg-ink-900/40"
+    class="lg:hidden m-0 w-full max-w-none h-full max-h-none p-0 bg-paper text-ink-900 backdrop:bg-ink-900/40"
     aria-label="Menú principal"
   >
     <div class="flex flex-col h-full">
