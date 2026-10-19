@@ -4,6 +4,7 @@ import Container from '../components/Container.astro';
 import Hero from '../components/Hero.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import CtaBlock from '../components/CtaBlock.astro';
+import { faculty } from '../data/faculty';
 
 const valores = [
   {
@@ -259,7 +260,7 @@ const team = [
       <SectionTitle
         eyebrow="Equipo"
         title="Quiénes están detrás."
-        subtitle="Dirección y oficina de SimAcademy. Próximamente publicaremos también al faculty de instructores."
+        subtitle="Dirección y oficina de SimAcademy."
         align="center"
         class="mx-auto mb-12"
       />
@@ -287,6 +288,55 @@ const team = [
             {p.bio && (
               <p class="text-sm text-ink-700 leading-relaxed">{p.bio}</p>
             )}
+          </li>
+        ))}
+      </ul>
+    </Container>
+  </section>
+
+
+  <section id="faculty" class="reveal py-12 sm:py-20 lg:py-28 bg-surface">
+    <Container>
+      <SectionTitle
+        eyebrow="Faculty"
+        title="Quiénes enseñan."
+        subtitle="Instructores EuSim, docentes y pacientes simulados de México, Argentina y Chile. Todos combinan práctica clínica o escénica con formación en educación."
+        align="center"
+        class="mx-auto mb-12"
+      />
+      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" role="list">
+        {faculty.map((d) => (
+          <li class="bg-surface rounded-[var(--r-md)] border border-ink-300/30 shadow-[var(--shadow-sm)] p-6 flex flex-col gap-4">
+            <div class="flex items-center gap-4">
+              {d.photo ? (
+                <img
+                  src={`${B}/team/faculty/${d.photo}.jpg`}
+                  alt={`Foto de ${d.name}`}
+                  class="w-20 h-20 shrink-0 rounded-full object-cover ring-2 ring-brand-purple/20 bg-ink-300/20"
+                  loading="lazy"
+                  width="80"
+                  height="80"
+                />
+              ) : (
+                <span
+                  class="w-20 h-20 shrink-0 rounded-full bg-brand-purple/10 text-brand-purple font-display text-xl font-semibold inline-flex items-center justify-center"
+                  aria-hidden="true"
+                >
+                  {d.name.split(' ').slice(0, 2).map((w) => w[0]).join('')}
+                </span>
+              )}
+              <div>
+                <h3 class="font-display text-lg font-semibold text-ink-900 leading-tight">{d.name}</h3>
+                <p class="text-sm font-medium text-brand-purple">{d.headline}</p>
+                <p class="mt-1 flex flex-wrap gap-1.5 text-xs">
+                  <span class="px-2 py-0.5 rounded-full bg-ink-300/20 text-ink-700">{d.pais}</span>
+                  {d.programas.map((p) => (
+                    <span class="px-2 py-0.5 rounded-full bg-brand-green/10 text-brand-green-dark">{p}</span>
+                  ))}
+                </p>
+              </div>
+            </div>
+            <p class="text-sm text-ink-700 leading-relaxed">{d.bio}</p>
           </li>
         ))}
       </ul>
