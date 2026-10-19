@@ -86,12 +86,12 @@ export const faculty: Docente[] = [
     photo: 'josefina-serrano',
   },
   {
-    name: 'Magdalena Sierra',
+    name: 'Magdalena Sierra Pacheco',
     pais: 'México',
     programas: ['EuSim 1'],
-    headline: 'Enfermería cardiológica · Realidad virtual',
+    headline: 'Enfermería cardiológica · Diseño instruccional',
     bio:
-      'Licenciada en Enfermería y Obstetricia, especialista en Enfermería Infantil y Maestra en Educación Basada en Competencias. Coordina el Centro de Aprendizaje por Simulación de la Escuela de Enfermería del Instituto Nacional de Cardiología. Educadora EuSim 1 y 2 y Faculty EuSim. Su eje: simulación con realidad virtual para el aprendizaje transformacional en enfermería.',
+      'Licenciada en Enfermería y Obstetricia (UNAM–INC Ignacio Chávez), especialista en Enfermería Infantil y Maestra en Educación Basada en Competencias, con doctorado en Educación en curso. Coordina el Centro de Aprendizaje en Competencias Clínicas por Simulación del Instituto Nacional de Cardiología y su Diplomado de Enseñanza por Simulación Clínica. Instructora EuSim de Nivel 1 y 2, Faculty EuSim e instructora AHA (BLS, ACLS y PALS). Su eje: diseño instruccional y simulación en enfermería cardiovascular.',
     photo: 'magdalena-sierra',
   },
   {
