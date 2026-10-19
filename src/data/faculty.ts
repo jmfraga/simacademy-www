@@ -149,7 +149,7 @@ export const faculty: Docente[] = [
     programas: ['Paciente simulado'],
     headline: 'Actriz · Directora de HumanizArte en Salud',
     bio:
-      'Actriz e instructora en simulación clínica. Dirige HumanizArte en Salud, centro de formación y gestión de pacientes simulados, en el cruce entre las artes vivas y la educación en salud. Coordina la formación escénica del programa de Actores de SimAcademy. Su eje: la mirada humanizada del paciente simulado.',
+      'Actriz formada en la escuela de Consuelo Holzapfel e instructora en simulación en salud con certificación internacional (Universitat de Lleida). Desde 2015 trabaja como paciente simulada en universidades de Chile y Perú, y dirige HumanizArte, donde forma pacientes simulados en técnica actoral y retroalimentación bajo los estándares de ASPE, de cuyo comité internacional es miembro. Coordina la formación escénica del programa de Actores de SimAcademy. Su eje: la mirada humanizada del paciente simulado.',
     photo: 'veronica-toro',
   },
   {
