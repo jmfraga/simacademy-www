@@ -124,6 +124,15 @@ export const faculty: Docente[] = [
     photo: 'carolina-bejarano',
   },
   {
+    name: 'Rodrigo Rubio',
+    pais: 'México',
+    programas: [],
+    headline: 'Anestesiólogo · Manejo de crisis y factor humano',
+    bio:
+      'Médico anestesiólogo por el Hospital ABC/UNAM, con fellowship en Simulación Clínica (Western University, Canadá) y Diplomado en Alta Dirección (IPADE). Dirige el Centro de Desarrollo del Centro Médico ABC y es faculty del Center for Medical Simulation (Harvard). Expresidente de FLASIC y vicepresidente del Comité de Educación de la WFSA. Su eje: crisis en quirófano, vía aérea difícil y factor humano.',
+    photo: 'rodrigo-rubio',
+  },
+  {
     name: 'Sara Morales López',
     pais: 'México',
     programas: [],
