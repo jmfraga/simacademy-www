@@ -46,14 +46,15 @@ export const faculty: Docente[] = [
       'Médico especialista en Anestesiología, con diplomatura en Educación para Profesionales de la Salud (Universidad Nacional de Cuyo). Dirigió el Centro de Simulación de la Asociación Mendocina de Anestesiología y creó el curso de instructores de simulación de la FAAAAR. Educador EuSim. Su eje: anestesia cardiovascular, neonatal y pediátrica llevada al escenario simulado.',
     photo: 'hector-navarrini',
   },
+
   {
-    name: 'Carolina Bejarano',
-    pais: 'México',
+    name: 'Carolina Astoul',
+    pais: 'Argentina',
     programas: ['EuSim 1', 'EuSim 2'],
-    headline: 'Médica · Innovación educativa y acreditación',
+    headline: 'Enfermería · Juicio clínico',
     bio:
-      'Médica cirujana y partera por el Instituto Politécnico Nacional, con diplomado en Educación para Profesionales de la Salud. Fue jefa de Innovación Educativa de la Escuela Nacional de Medicina y Homeopatía (IPN) y es evaluadora de COMAEM en procesos nacionales e internacionales. Su eje: diseño curricular, calidad educativa y enseñanza basada en simulación.',
-    photo: 'carolina-bejarano',
+      'Licenciada en Enfermería con trayectoria en cuidados críticos pediátricos de alta complejidad. Subdirectora del Centro de Simulación Clínica de la Universidad Austral, doctoranda en Ciencias Biomédicas y Máster en Educación para Profesionales de la Salud (Universidad de Barcelona). Instructora EuSim de Nivel 1 y 2. Su eje: la enseñanza del juicio clínico.',
+    photo: 'carolina-astoul',
   },
 
   // ── Faculty EuSim Nivel 1 ──────────────────────────────────────────────
@@ -114,13 +115,13 @@ export const faculty: Docente[] = [
 
   // ── Docentes SimAcademy ────────────────────────────────────────────────
   {
-    name: 'Carolina Astoul',
-    pais: 'Argentina',
+    name: 'Carolina Bejarano',
+    pais: 'México',
     programas: [],
-    headline: 'Enfermería · Juicio clínico',
+    headline: 'Médica · Innovación educativa y acreditación',
     bio:
-      'Licenciada en Enfermería con trayectoria en cuidados críticos pediátricos de alta complejidad. Subdirectora del Centro de Simulación Clínica de la Universidad Austral, doctoranda en Ciencias Biomédicas y Máster en Educación para Profesionales de la Salud (Universidad de Barcelona). Formada en EuSim Nivel 1 y 2. Su eje: la enseñanza del juicio clínico.',
-    photo: 'carolina-astoul',
+      'Médica cirujana y partera por el Instituto Politécnico Nacional, con diplomado en Educación para Profesionales de la Salud. Fue jefa de Innovación Educativa de la Escuela Nacional de Medicina y Homeopatía (IPN) y es evaluadora de COMAEM en procesos nacionales e internacionales. Su eje: diseño curricular, calidad educativa y enseñanza basada en simulación.',
+    photo: 'carolina-bejarano',
   },
   {
     name: 'Sara Morales López',
